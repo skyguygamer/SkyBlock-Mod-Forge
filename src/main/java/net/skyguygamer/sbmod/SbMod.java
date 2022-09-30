@@ -1,6 +1,7 @@
 package net.skyguygamer.sbmod;
 
 import com.mojang.logging.LogUtils;
+import net.minecraftforge.client.event.RegisterClientCommandsEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegisterCommandsEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -42,7 +43,7 @@ public class SbMod {
     @Mod.EventBusSubscriber(modid = "sbmod")
     public class EventHandlers {
         @SubscribeEvent
-        public static void registerCommands(RegisterCommandsEvent event) {
+        public static void registerCommands(RegisterClientCommandsEvent event) {
             HelloCommand.register(event.getDispatcher());
         }
     }
