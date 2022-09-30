@@ -17,7 +17,8 @@ public final class HelloCommand
 
     private static int run(CommandContext<CommandSourceStack> context)
     {
-        context.getSource().sendSuccess(Component.translatable("hello", Minecraft.getInstance().player.getDisplayName()), false);
+        ServerPlayer player = context.getSource().asPlayer();
+        context.getSource().sendSuccess(Component.translatable("hello", player.getDisplayName()), false);
         return Command.SINGLE_SUCCESS;
     }
 }
