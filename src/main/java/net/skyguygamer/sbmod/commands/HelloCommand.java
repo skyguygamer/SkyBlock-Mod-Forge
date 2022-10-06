@@ -16,7 +16,6 @@ public final class HelloCommand
         dispatcher.register(Commands.literal("hello").executes(HelloCommand::run));
     }
 
-
     private static int run(CommandContext<CommandSourceStack> context)
     {
         Player player = (Player) context.getSource().getEntity();

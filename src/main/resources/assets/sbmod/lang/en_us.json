@@ -1,4 +1,5 @@
 {
-  "hellocommand": "Hello there %s"
+  "hellocommand": "Hello there %s",
+  "welcomemsg": "This is a very much so BETAA!!!"
 }
 

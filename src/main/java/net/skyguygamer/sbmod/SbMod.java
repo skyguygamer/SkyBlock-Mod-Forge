@@ -11,6 +11,7 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.skyguygamer.sbmod.commands.AddCommand;
+import net.skyguygamer.sbmod.commands.Divide64;
 import net.skyguygamer.sbmod.commands.HelloCommand;
 import org.slf4j.Logger;
 //test
@@ -27,6 +28,7 @@ public class SbMod {
         public static void registerCommands(RegisterClientCommandsEvent event) {
             HelloCommand.register(event.getDispatcher());
             AddCommand.register(event.getDispatcher());
+            Divide64.register(event.getDispatcher());
         }
     }
 
