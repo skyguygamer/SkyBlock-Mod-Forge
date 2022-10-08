@@ -20,7 +20,7 @@ public final class JoinCommand {
         boolean success = false;
         ArrayList<String> commands = new ArrayList<String>();
         try {
-            BufferedReader in = new BufferedReader(new FileReader("tsbmodsettings.txt"));
+            BufferedReader in = new BufferedReader(new FileReader("joincommands.txt"));
             String line;
             while ((line = in.readLine()) != null) {
                 commands.add(line);
@@ -61,7 +61,7 @@ public final class JoinCommand {
         if (success) {
             PrintWriter writer;
             try {
-                writer = new PrintWriter("tsbmodsettings.txt", "UTF-8");
+                writer = new PrintWriter("joincommands.txt", "UTF-8");
                 for (int i = 0; i < commands.size(); i++) {
                     writer.println(commands.get(i));
                 }
@@ -88,7 +88,7 @@ public final class JoinCommand {
         if (success) {
             PrintWriter writer;
             try {
-                writer = new PrintWriter("tsbmodsettings.txt", "UTF-8");
+                writer = new PrintWriter("joincommands.txt", "UTF-8");
                 for (int i = 0; i < commands.size(); i++) {
                     writer.println(commands.get(i));
                 }
