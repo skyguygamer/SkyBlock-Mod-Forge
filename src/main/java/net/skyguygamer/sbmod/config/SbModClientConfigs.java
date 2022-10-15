@@ -13,14 +13,9 @@ public class SbModClientConfigs {
 
     public static final ForgeConfigSpec.ConfigValue<Integer> ore;
     public static final ForgeConfigSpec.ConfigValue<Boolean> welcomemsg;
-    public static final ForgeConfigSpec.ConfigValue<List<? extends String>> jclist;
 
     static {
         BUILDER.push("Configs for Skyblock Mod");
-
-        jclist = BUILDER.comment("List of join commands")
-                .defineList("example_string_list_config_entry", Arrays.asList("c1", "c2"), entry -> true);
-
 
         welcomemsg = BUILDER.comment("On login message")
                 .define("Welcome", true);

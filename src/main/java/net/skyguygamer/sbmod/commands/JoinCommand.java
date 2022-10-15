@@ -11,11 +11,16 @@ import net.minecraft.network.chat.Component;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.concurrent.ExecutionException;
+import java.util.List;
 
 
 public final class JoinCommand {
+
     public static void register(CommandDispatcher<CommandSourceStack> dispatcher) {
+
+        List<String> aliases = new ArrayList<String>();
+        aliases.add("jc");
+        aliases.add("joincommand");
 
         boolean success = false;
         ArrayList<String> commands = new ArrayList<String>();
@@ -33,6 +38,18 @@ public final class JoinCommand {
 
         }
         dispatcher.register(Commands.literal("joincommand")
+                .then(Commands.literal("add").then(Commands.argument("command", StringArgumentType.string()).executes(JoinCommand -> add(JoinCommand.getSource(),
+                                StringArgumentType.getString(JoinCommand, "command"), commands, success
+
+                        )))
+                ).then(Commands.literal("delete").then(Commands.argument("numinlist", IntegerArgumentType.integer(0)).executes(JoinCommand -> delete(JoinCommand.getSource(),
+                        IntegerArgumentType.getInteger(JoinCommand, "numinlist"), commands, success))))
+                .then(Commands.literal("list").executes(JoinCommand -> listJc(JoinCommand.getSource(), commands))));
+
+
+
+
+        dispatcher.register(Commands.literal("jc")
                 .then(Commands.literal("add").then(Commands.argument("command", StringArgumentType.string()).executes(JoinCommand -> add(JoinCommand.getSource(),
                                 StringArgumentType.getString(JoinCommand, "command"), commands, success
 
@@ -83,7 +100,7 @@ public final class JoinCommand {
             commands.remove(numinlist);
             success = true;
         } catch (Exception e) {
-            source.sendSuccess(Component.literal("Invalid, please check your line number (/joincommand list)").withStyle(ChatFormatting.RED), false);
+            source.sendSuccess(Component.literal("Invalid, please check your index # (/joincommand list)").withStyle(ChatFormatting.RED), false);
         }
         if (success) {
             PrintWriter writer;
