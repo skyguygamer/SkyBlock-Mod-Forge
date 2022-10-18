@@ -27,6 +27,7 @@ public final class HelpCommand {
         context.getSource().sendSuccess(Component.literal(boarder), false);
         context.getSource().sendSuccess(Component.literal("§a/shelp§f: Lists the Skyblock Mods Commands"), false);
         context.getSource().sendSuccess(Component.literal("§a/joincommand §7[add,delete,list,help]§f: Allows you to set commands/messages that are sent when you join the game"), false);
+        context.getSource().sendSuccess(Component.literal("§a/autoadvert §7[info,message,time]§f: Allows you to send a message every interval (Leave empty to stop adverts)"), false);
         context.getSource().sendSuccess(Component.literal("§a/64 §7[number]§f: Divides a number by 64 to find how many stacks it is"), false);
         context.getSource().sendSuccess(Component.literal("§a/add §7[int1,int2]§f: Allows you to add two numbers together"), false);
         context.getSource().sendSuccess(Component.literal("§a/hello§f: Sends you a nice message :)"), false);

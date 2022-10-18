@@ -69,11 +69,11 @@ public final class JoinCommand {
         else {
             String addtolist = "";
             for (int i = 1; i < 2; i++) {
-                addtolist += command +" ";
+                addtolist += command;
             }
             commands.add(addtolist);
             success = true;
-            source.sendSuccess(Component.literal(addtolist+"will be executed whenever you join").withStyle(ChatFormatting.DARK_AQUA),false);
+            source.sendSuccess(Component.literal(addtolist+" will be executed whenever you join").withStyle(ChatFormatting.DARK_AQUA),false);
             }
         if (success) {
             PrintWriter writer;

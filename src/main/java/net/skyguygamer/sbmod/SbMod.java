@@ -1,8 +1,16 @@
 package net.skyguygamer.sbmod;
 
 
+import com.mojang.authlib.minecraft.client.MinecraftClient;
+import com.mojang.brigadier.CommandDispatcher;
+import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.player.LocalPlayer;
+import net.minecraft.commands.CommandFunction;
+import net.minecraft.commands.CommandSigningContext;
+import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.network.ServerPlayerConnection;
 import net.minecraft.util.Mth;
@@ -10,10 +18,12 @@ import net.minecraft.util.TimeUtil;
 import net.minecraft.util.profiling.jfr.event.WorldLoadFinishedEvent;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.client.ClientCommandHandler;
 import net.minecraftforge.client.event.ClientChatEvent;
 import net.minecraftforge.client.event.ClientChatReceivedEvent;
 import net.minecraftforge.client.event.ClientPlayerNetworkEvent;
 import net.minecraftforge.client.event.RegisterClientCommandsEvent;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.ServerChatEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
@@ -21,19 +31,27 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
+import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
+import net.minecraftforge.fml.loading.targets.CommonLaunchHandler;
+import net.minecraftforge.fml.loading.targets.FMLClientDevLaunchHandler;
+import net.minecraftforge.fml.loading.targets.FMLClientLaunchHandler;
 import net.skyguygamer.sbmod.commands.*;
 import net.skyguygamer.sbmod.config.SbModClientConfigs;
 import org.slf4j.event.LoggingEvent;
+import org.spongepowered.asm.mixin.injection.modify.LocalVariableDiscriminator;
 
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import static javax.swing.text.html.HTML.Tag.S;
+
 //test
 // The value here should match an entry in the META-INF/mods.toml file
 @Mod(SbMod.MOD_ID)
 public class SbMod {
+    public static int advertTimer = 0;
     public static Boolean loggedOn = false;
     public static final String MOD_ID = "sbmod";
     //private static final Logger LOGGER = LogUtils.getLogger();
@@ -61,14 +79,30 @@ public class SbMod {
         }
          */
         @SubscribeEvent
-        public static void logOn(ClientPlayerNetworkEvent.LoggingIn event) {
+        public static void registerCommands(RegisterClientCommandsEvent event) {
+            HelloCommand.register(event.getDispatcher());
+            AddCommand.register(event.getDispatcher());
+            Divide64.register(event.getDispatcher());
+            JoinCommand.register(event.getDispatcher());
+            HelpCommand.register(event.getDispatcher());
+            AutoAdvert.register((event.getDispatcher()));
+        }
+        @SubscribeEvent
+        public static void chat(ClientChatEvent event) {
+            if(event.getMessage().contains("d")) {
+
+            }
+
+        }
+
+        @SubscribeEvent
+        public static void logOn(ClientPlayerNetworkEvent.LoggingIn event)  {
 
 
             Player player = event.getPlayer();
 
             //Login message
             if (SbModClientConfigs.welcomemsg.get() && !loggedOn) {
-
                 String boarder = "";
                 for (int i = 0; i < 20; i++) {
                     boarder += "§a-";
@@ -102,29 +136,41 @@ public class SbMod {
                 }
                 for (int i = 0; i < commands.size(); i++) {
                     //HOWTF DO U SEND MESSAGE AS PLAYER?????
+                    LocalPlayer lp = event.getPlayer();
+                    //lp.commandSigned("64 600", Component.empty());
+                    lp.commandUnsigned(commands.get(i));
+                    //Minecraft.getInstance().player.commandUnsigned("64 500");
+                    //event.getPlayer().commandUnsigned("64 50");
 
-                    player.displayClientMessage(Component.literal(commands.get(i)), false);
-                    System.out.println(commands.get((i)));
+                    //lp.commandHasSignableArguments("autoadvert message '&aPP'");
+                    //player.displayClientMessage(Component.literal(commands.get(i)), false);
+
+                    //ClientCommandHandler.;
+                    //System.out.println(commands.get((i)));
+
+
                     loggedOn = true;
                 }
             }
         }
-
+        @SubscribeEvent
+        public static void tick(TickEvent.ClientTickEvent event) {
+            LocalPlayer lp = Minecraft.getInstance().player;
+            if (AutoAdvert.sendingmessages) {
+                if (advertTimer >= AutoAdvert.interval) {
+                    lp.chatSigned(AutoAdvert.message, Component.literal(""));
+                    advertTimer = 0;
+                }
+                advertTimer++;
+            }
+        }
         @SubscribeEvent
         public static void logOff(ClientPlayerNetworkEvent.LoggingOut event) {
             loggedOn = false;
         }
 
         //Command Register
-        @SubscribeEvent
-        public static void registerCommands(RegisterClientCommandsEvent event) {
-            HelloCommand.register(event.getDispatcher());
-            AddCommand.register(event.getDispatcher());
-            Divide64.register(event.getDispatcher());
-            JoinCommand.register(event.getDispatcher());
-            HelpCommand.register(event.getDispatcher());
-            AutoAdvert.register((event.getDispatcher()));
-        }
+
     }
 
 
