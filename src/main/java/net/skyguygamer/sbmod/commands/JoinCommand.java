@@ -124,11 +124,11 @@ public final class JoinCommand {
     }
 
     private static int listJc(CommandSourceStack source, ArrayList<String> commands) {
-        source.sendSuccess(Component.literal("***********************************************").withStyle(ChatFormatting.GREEN), false);
+        source.sendSuccess(Component.literal("****************************************").withStyle(ChatFormatting.GREEN), false);
         for (int i = 0; i < commands.size(); i++) {
             source.sendSuccess(Component.literal(String.valueOf(i)+": "+commands.get(i)).withStyle(ChatFormatting.DARK_AQUA), false);
         }
-        source.sendSuccess(Component.literal("***********************************************").withStyle(ChatFormatting.GREEN), false);
+        source.sendSuccess(Component.literal("****************************************").withStyle(ChatFormatting.GREEN), false);
 
 
 

@@ -29,13 +29,11 @@ public final class HelpCommand {
         context.getSource().sendSuccess(Component.literal("§a/joincommand §7[add,delete,list,help]§f: Allows you to set commands/messages that are sent when you join the game"), false);
         context.getSource().sendSuccess(Component.literal("§a/autoadvert §7[info,message,time]§f: Allows you to send a message every interval (Leave empty to stop adverts)"), false);
         context.getSource().sendSuccess(Component.literal("§a/64 §7[number]§f: Divides a number by 64 to find how many stacks it is"), false);
-        context.getSource().sendSuccess(Component.literal("§a/add §7[int1,int2]§f: Allows you to add two numbers together"), false);
+        context.getSource().sendSuccess(Component.literal("§a/calc §7[add,subtract,multiply,divide]§f: Allows you to use simple math methods"), false);
+        context.getSource().sendSuccess(Component.literal("§a/enchantall§f: Will enchant your item with all the possible enchants for that item "), false);
+        context.getSource().sendSuccess(Component.literal("§a/autofix§f: Will autofix your tool every 20 minutes when your tool is below 25%"), false);
         context.getSource().sendSuccess(Component.literal("§a/hello§f: Sends you a nice message :)"), false);
-        context.getSource().sendSuccess(Component.literal(""), false);
-        context.getSource().sendSuccess(Component.literal(""), false);
-        context.getSource().sendSuccess(Component.literal(""), false);
-        context.getSource().sendSuccess(Component.literal(""), false);
-        context.getSource().sendSuccess(Component.literal(""), false);
+        //context.getSource().sendSuccess(Component.literal(""), false);
         context.getSource().sendSuccess(Component.literal(boarder), false);
         return Command.SINGLE_SUCCESS;
     }
