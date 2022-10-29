@@ -21,7 +21,7 @@ public class AutoPrivate {
     }
     public static String text;
     private static int run(CommandSourceStack source, String line3, String line4) {
-        text = "[Private]\n" + source.getEntity().getName() + "\n" + line3 + "\n" + line4+"�";
+        //text = "[Private]\n" + source.getEntity().getName() + "\n" + line3 + "\n" + line4+"�";
         if(!SbMod.autoPrivate) {
             SbMod.autoPrivate = true;
             source.sendSuccess(Component.literal(ChatFormatting.GREEN + "AutoPrivate is now enabled"), false);
@@ -34,7 +34,8 @@ public class AutoPrivate {
 
     }
     private static int run2(CommandSourceStack source) {
-        text = "[Private]\n"+source.getEntity().getName()+"�";
+        //text = "[Private]\n"+source.getEntity().getName()+"�";
+        text = "d";
         if(!SbMod.autoPrivate) {
             SbMod.autoPrivate = true;
             source.sendSuccess(Component.literal(ChatFormatting.GREEN + "AutoPrivate is now enabled"), false);

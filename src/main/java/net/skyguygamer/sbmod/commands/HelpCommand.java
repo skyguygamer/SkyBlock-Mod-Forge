@@ -32,6 +32,7 @@ public final class HelpCommand {
         context.getSource().sendSuccess(Component.literal("§a/calc §7[add,subtract,multiply,divide]§f: Allows you to use simple math methods"), false);
         context.getSource().sendSuccess(Component.literal("§a/enchantall§f: Will enchant your item with all the possible enchants for that item "), false);
         context.getSource().sendSuccess(Component.literal("§a/autofix§f: Will autofix your tool every 20 minutes when your tool is below 25%"), false);
+        context.getSource().sendSuccess(Component.literal("§a/autospawnmob §7[info]§f: Will auto spawn a mob of your choosing that you have access to"), false);
         context.getSource().sendSuccess(Component.literal("§a/hello§f: Sends you a nice message :)"), false);
         //context.getSource().sendSuccess(Component.literal(""), false);
         context.getSource().sendSuccess(Component.literal(boarder), false);

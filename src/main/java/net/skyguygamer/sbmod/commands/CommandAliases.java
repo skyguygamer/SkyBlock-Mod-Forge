@@ -32,6 +32,7 @@ public class CommandAliases {
         context.getSource().sendSuccess(Component.literal("§a/joincommand§f: /jc"), false);
         context.getSource().sendSuccess(Component.literal("§a/autoadvert§f: /advert"), false);
         context.getSource().sendSuccess(Component.literal("§a/autofix§f: /autorepair"), false);
+        context.getSource().sendSuccess(Component.literal("§a/autospawnmob§f: /asm"), false);
         context.getSource().sendSuccess(Component.literal(boarder), false);
         return Command.SINGLE_SUCCESS;
     }

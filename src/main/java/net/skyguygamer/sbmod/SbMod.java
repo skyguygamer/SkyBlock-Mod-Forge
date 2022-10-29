@@ -56,98 +56,353 @@ public class SbMod {
     public static boolean enchantOther = false;
     public static boolean enchantAxe = false;
     public static boolean enchant = false;
-    public static boolean spawnmobs = false;
     public static boolean autoFix = false;
-    public static boolean autobuy = false;
     public static boolean autoPrivate = false;
     public static boolean coolDown = false;
     public static boolean printMsg = false;
     public static int printMsgTimer = 0;
+    public static boolean spawnMobs = false;
+    public static int spawnTime = 0;
     public static void convertText(String text) {
         for (int i = 0; i < text.length(); i ++) {
             String character = String.valueOf(text.charAt(i));
 
             try {
-                Robot robot = new Robot();
-                robot.keyRelease(KeyEvent.VK_SHIFT);
-                switch(character) {
-                    case "a": robot.keyPress(KeyEvent.VK_A); robot.keyRelease(KeyEvent.VK_A); break;
-                    case "b": robot.keyPress(KeyEvent.VK_B); robot.keyRelease(KeyEvent.VK_B); break;
-                    case "c": robot.keyPress(KeyEvent.VK_C); robot.keyRelease(KeyEvent.VK_C); break;
-                    case "d": robot.keyPress(KeyEvent.VK_D); robot.keyRelease(KeyEvent.VK_D); break;
-                    case "e": robot.keyPress(KeyEvent.VK_E); robot.keyRelease(KeyEvent.VK_E); break;
-                    case "f": robot.keyPress(KeyEvent.VK_F); robot.keyRelease(KeyEvent.VK_F); break;
-                    case "g": robot.keyPress(KeyEvent.VK_G); robot.keyRelease(KeyEvent.VK_G); break;
-                    case "h": robot.keyPress(KeyEvent.VK_H); robot.keyRelease(KeyEvent.VK_H); break;
-                    case "i": robot.keyPress(KeyEvent.VK_I); robot.keyRelease(KeyEvent.VK_I); break;
-                    case "j": robot.keyPress(KeyEvent.VK_J); robot.keyRelease(KeyEvent.VK_J); break;
-                    case "k": robot.keyPress(KeyEvent.VK_K); robot.keyRelease(KeyEvent.VK_K); break;
-                    case "l": robot.keyPress(KeyEvent.VK_L); robot.keyRelease(KeyEvent.VK_L); break;
-                    case "m": robot.keyPress(KeyEvent.VK_M); robot.keyRelease(KeyEvent.VK_M); break;
-                    case "n": robot.keyPress(KeyEvent.VK_N); robot.keyRelease(KeyEvent.VK_N); break;
-                    case "o": robot.keyPress(KeyEvent.VK_O); robot.keyRelease(KeyEvent.VK_O); break;
-                    case "p": robot.keyPress(KeyEvent.VK_P); robot.keyRelease(KeyEvent.VK_P); break;
-                    case "q": robot.keyPress(KeyEvent.VK_Q); robot.keyRelease(KeyEvent.VK_Q); break;
-                    case "r": robot.keyPress(KeyEvent.VK_R); robot.keyRelease(KeyEvent.VK_R); break;
-                    case "s": robot.keyPress(KeyEvent.VK_S); robot.keyRelease(KeyEvent.VK_S); break;
-                    case "t": robot.keyPress(KeyEvent.VK_T); robot.keyRelease(KeyEvent.VK_T); break;
-                    case "u": robot.keyPress(KeyEvent.VK_U); robot.keyRelease(KeyEvent.VK_U); break;
-                    case "v": robot.keyPress(KeyEvent.VK_V); robot.keyRelease(KeyEvent.VK_V); break;
-                    case "w": robot.keyPress(KeyEvent.VK_W); robot.keyRelease(KeyEvent.VK_W); break;
-                    case "x": robot.keyPress(KeyEvent.VK_X); robot.keyRelease(KeyEvent.VK_X); break;
-                    case "y": robot.keyPress(KeyEvent.VK_Y); robot.keyRelease(KeyEvent.VK_Y); break;
-                    case "z": robot.keyPress(KeyEvent.VK_Z); robot.keyRelease(KeyEvent.VK_Z); break;
-
-                    case "A": robot.keyPress(KeyEvent.VK_SHIFT); robot.keyPress(KeyEvent.VK_A); robot.keyRelease(KeyEvent.VK_A); robot.keyRelease(KeyEvent.VK_SHIFT); break;
-                    case "B": robot.keyPress(KeyEvent.VK_SHIFT); robot.keyPress(KeyEvent.VK_B); robot.keyRelease(KeyEvent.VK_B); robot.keyRelease(KeyEvent.VK_SHIFT); break;
-                    case "C": robot.keyPress(KeyEvent.VK_SHIFT); robot.keyPress(KeyEvent.VK_C); robot.keyRelease(KeyEvent.VK_C); robot.keyRelease(KeyEvent.VK_SHIFT); break;
-                    case "D": robot.keyPress(KeyEvent.VK_SHIFT); robot.keyPress(KeyEvent.VK_D); robot.keyRelease(KeyEvent.VK_D); robot.keyRelease(KeyEvent.VK_SHIFT); break;
-                    case "E": robot.keyPress(KeyEvent.VK_SHIFT); robot.keyPress(KeyEvent.VK_E); robot.keyRelease(KeyEvent.VK_E); robot.keyRelease(KeyEvent.VK_SHIFT); break;
-                    case "F": robot.keyPress(KeyEvent.VK_SHIFT); robot.keyPress(KeyEvent.VK_F); robot.keyRelease(KeyEvent.VK_F); robot.keyRelease(KeyEvent.VK_SHIFT); break;
-                    case "G": robot.keyPress(KeyEvent.VK_SHIFT); robot.keyPress(KeyEvent.VK_G); robot.keyRelease(KeyEvent.VK_G); robot.keyRelease(KeyEvent.VK_SHIFT); break;
-                    case "H": robot.keyPress(KeyEvent.VK_SHIFT); robot.keyPress(KeyEvent.VK_H); robot.keyRelease(KeyEvent.VK_H); robot.keyRelease(KeyEvent.VK_SHIFT); break;
-                    case "I": robot.keyPress(KeyEvent.VK_SHIFT); robot.keyPress(KeyEvent.VK_I); robot.keyRelease(KeyEvent.VK_I); robot.keyRelease(KeyEvent.VK_SHIFT); break;
-                    case "J": robot.keyPress(KeyEvent.VK_SHIFT); robot.keyPress(KeyEvent.VK_J); robot.keyRelease(KeyEvent.VK_J); robot.keyRelease(KeyEvent.VK_SHIFT); break;
-                    case "K": robot.keyPress(KeyEvent.VK_SHIFT); robot.keyPress(KeyEvent.VK_K); robot.keyRelease(KeyEvent.VK_K); robot.keyRelease(KeyEvent.VK_SHIFT); break;
-                    case "L": robot.keyPress(KeyEvent.VK_SHIFT); robot.keyPress(KeyEvent.VK_L); robot.keyRelease(KeyEvent.VK_L); robot.keyRelease(KeyEvent.VK_SHIFT); break;
-                    case "M": robot.keyPress(KeyEvent.VK_SHIFT); robot.keyPress(KeyEvent.VK_M); robot.keyRelease(KeyEvent.VK_M); robot.keyRelease(KeyEvent.VK_SHIFT); break;
-                    case "N": robot.keyPress(KeyEvent.VK_SHIFT); robot.keyPress(KeyEvent.VK_N); robot.keyRelease(KeyEvent.VK_N); robot.keyRelease(KeyEvent.VK_SHIFT); break;
-                    case "O": robot.keyPress(KeyEvent.VK_SHIFT); robot.keyPress(KeyEvent.VK_O); robot.keyRelease(KeyEvent.VK_O); robot.keyRelease(KeyEvent.VK_SHIFT); break;
-                    case "P": robot.keyPress(KeyEvent.VK_SHIFT); robot.keyPress(KeyEvent.VK_P); robot.keyRelease(KeyEvent.VK_P); robot.keyRelease(KeyEvent.VK_SHIFT); break;
-                    case "Q": robot.keyPress(KeyEvent.VK_SHIFT); robot.keyPress(KeyEvent.VK_Q); robot.keyRelease(KeyEvent.VK_Q); robot.keyRelease(KeyEvent.VK_SHIFT); break;
-                    case "R": robot.keyPress(KeyEvent.VK_SHIFT); robot.keyPress(KeyEvent.VK_R); robot.keyRelease(KeyEvent.VK_R); robot.keyRelease(KeyEvent.VK_SHIFT); break;
-                    case "S": robot.keyPress(KeyEvent.VK_SHIFT); robot.keyPress(KeyEvent.VK_S); robot.keyRelease(KeyEvent.VK_S); robot.keyRelease(KeyEvent.VK_SHIFT); break;
-                    case "T": robot.keyPress(KeyEvent.VK_SHIFT); robot.keyPress(KeyEvent.VK_T); robot.keyRelease(KeyEvent.VK_T); robot.keyRelease(KeyEvent.VK_SHIFT); break;
-                    case "U": robot.keyPress(KeyEvent.VK_SHIFT); robot.keyPress(KeyEvent.VK_U); robot.keyRelease(KeyEvent.VK_U); robot.keyRelease(KeyEvent.VK_SHIFT); break;
-                    case "V": robot.keyPress(KeyEvent.VK_SHIFT); robot.keyPress(KeyEvent.VK_V); robot.keyRelease(KeyEvent.VK_V); robot.keyRelease(KeyEvent.VK_SHIFT); break;
-                    case "W": robot.keyPress(KeyEvent.VK_SHIFT); robot.keyPress(KeyEvent.VK_W); robot.keyRelease(KeyEvent.VK_W); robot.keyRelease(KeyEvent.VK_SHIFT); break;
-                    case "X": robot.keyPress(KeyEvent.VK_SHIFT); robot.keyPress(KeyEvent.VK_X); robot.keyRelease(KeyEvent.VK_X); robot.keyRelease(KeyEvent.VK_SHIFT); break;
-                    case "Y": robot.keyPress(KeyEvent.VK_SHIFT); robot.keyPress(KeyEvent.VK_Y); robot.keyRelease(KeyEvent.VK_Y); robot.keyRelease(KeyEvent.VK_SHIFT); break;
-                    case "Z": robot.keyPress(KeyEvent.VK_SHIFT); robot.keyPress(KeyEvent.VK_Z); robot.keyRelease(KeyEvent.VK_Z); robot.keyRelease(KeyEvent.VK_SHIFT); break;
-
-                    case "0": robot.keyPress(KeyEvent.VK_0); robot.keyRelease(KeyEvent.VK_0); break;
-                    case "1": robot.keyPress(KeyEvent.VK_1); robot.keyRelease(KeyEvent.VK_1); break;
-                    case "2": robot.keyPress(KeyEvent.VK_2); robot.keyRelease(KeyEvent.VK_2); break;
-                    case "3": robot.keyPress(KeyEvent.VK_3); robot.keyRelease(KeyEvent.VK_3); break;
-                    case "4": robot.keyPress(KeyEvent.VK_4); robot.keyRelease(KeyEvent.VK_4); break;
-                    case "5": robot.keyPress(KeyEvent.VK_5); robot.keyRelease(KeyEvent.VK_5); break;
-                    case "6": robot.keyPress(KeyEvent.VK_6); robot.keyRelease(KeyEvent.VK_6); break;
-                    case "7": robot.keyPress(KeyEvent.VK_7); robot.keyRelease(KeyEvent.VK_7); break;
-                    case "8": robot.keyPress(KeyEvent.VK_8); robot.keyRelease(KeyEvent.VK_8); break;
-                    case "9": robot.keyPress(KeyEvent.VK_9); robot.keyRelease(KeyEvent.VK_9); break;
-
-                    case "&": robot.keyPress(KeyEvent.VK_SHIFT); robot.keyPress(KeyEvent.VK_7); robot.keyRelease(KeyEvent.VK_7); robot.keyRelease(KeyEvent.VK_SHIFT); break;
-
-                    case "[": robot.keyPress(KeyEvent.VK_OPEN_BRACKET); robot.keyRelease(KeyEvent.VK_OPEN_BRACKET); break;
-                    case "]": robot.keyPress(KeyEvent.VK_CLOSE_BRACKET); robot.keyRelease(KeyEvent.VK_CLOSE_BRACKET); break;
-
-                    case "_": robot.keyPress(KeyEvent.VK_SHIFT); robot.keyPress(KeyEvent.VK_SUBTRACT); robot.keyRelease(KeyEvent.VK_SUBTRACT); robot.keyRelease(KeyEvent.VK_SHIFT); break;
-
-                    case "\n": robot.keyPress(KeyEvent.VK_ENTER); robot.keyRelease(KeyEvent.VK_ENTER); break;
-
-                    case "�": robot.keyPress(KeyEvent.VK_ESCAPE); robot.keyRelease(KeyEvent.VK_ESCAPE); break;
-                }
-
+                //if(!GraphicsEnvironment.isHeadless()) {
+                    System.setProperty("java.awt.AWTException", "false");
+                    Robot robot = new Robot();
+                    robot.keyRelease(KeyEvent.VK_SHIFT);
+                    switch (character) {
+                        case "a" -> {
+                            robot.keyPress(KeyEvent.VK_A);
+                            robot.keyRelease(KeyEvent.VK_A);
+                        }
+                        case "b" -> {
+                            robot.keyPress(KeyEvent.VK_B);
+                            robot.keyRelease(KeyEvent.VK_B);
+                        }
+                        case "c" -> {
+                            robot.keyPress(KeyEvent.VK_C);
+                            robot.keyRelease(KeyEvent.VK_C);
+                        }
+                        case "d" -> {
+                            robot.keyPress(KeyEvent.VK_D);
+                            robot.keyRelease(KeyEvent.VK_D);
+                        }
+                        case "e" -> {
+                            robot.keyPress(KeyEvent.VK_E);
+                            robot.keyRelease(KeyEvent.VK_E);
+                        }
+                        case "f" -> {
+                            robot.keyPress(KeyEvent.VK_F);
+                            robot.keyRelease(KeyEvent.VK_F);
+                        }
+                        case "g" -> {
+                            robot.keyPress(KeyEvent.VK_G);
+                            robot.keyRelease(KeyEvent.VK_G);
+                        }
+                        case "h" -> {
+                            robot.keyPress(KeyEvent.VK_H);
+                            robot.keyRelease(KeyEvent.VK_H);
+                        }
+                        case "i" -> {
+                            robot.keyPress(KeyEvent.VK_I);
+                            robot.keyRelease(KeyEvent.VK_I);
+                        }
+                        case "j" -> {
+                            robot.keyPress(KeyEvent.VK_J);
+                            robot.keyRelease(KeyEvent.VK_J);
+                        }
+                        case "k" -> {
+                            robot.keyPress(KeyEvent.VK_K);
+                            robot.keyRelease(KeyEvent.VK_K);
+                        }
+                        case "l" -> {
+                            robot.keyPress(KeyEvent.VK_L);
+                            robot.keyRelease(KeyEvent.VK_L);
+                        }
+                        case "m" -> {
+                            robot.keyPress(KeyEvent.VK_M);
+                            robot.keyRelease(KeyEvent.VK_M);
+                        }
+                        case "n" -> {
+                            robot.keyPress(KeyEvent.VK_N);
+                            robot.keyRelease(KeyEvent.VK_N);
+                        }
+                        case "o" -> {
+                            robot.keyPress(KeyEvent.VK_O);
+                            robot.keyRelease(KeyEvent.VK_O);
+                        }
+                        case "p" -> {
+                            robot.keyPress(KeyEvent.VK_P);
+                            robot.keyRelease(KeyEvent.VK_P);
+                        }
+                        case "q" -> {
+                            robot.keyPress(KeyEvent.VK_Q);
+                            robot.keyRelease(KeyEvent.VK_Q);
+                        }
+                        case "r" -> {
+                            robot.keyPress(KeyEvent.VK_R);
+                            robot.keyRelease(KeyEvent.VK_R);
+                        }
+                        case "s" -> {
+                            robot.keyPress(KeyEvent.VK_S);
+                            robot.keyRelease(KeyEvent.VK_S);
+                        }
+                        case "t" -> {
+                            robot.keyPress(KeyEvent.VK_T);
+                            robot.keyRelease(KeyEvent.VK_T);
+                        }
+                        case "u" -> {
+                            robot.keyPress(KeyEvent.VK_U);
+                            robot.keyRelease(KeyEvent.VK_U);
+                        }
+                        case "v" -> {
+                            robot.keyPress(KeyEvent.VK_V);
+                            robot.keyRelease(KeyEvent.VK_V);
+                        }
+                        case "w" -> {
+                            robot.keyPress(KeyEvent.VK_W);
+                            robot.keyRelease(KeyEvent.VK_W);
+                        }
+                        case "x" -> {
+                            robot.keyPress(KeyEvent.VK_X);
+                            robot.keyRelease(KeyEvent.VK_X);
+                        }
+                        case "y" -> {
+                            robot.keyPress(KeyEvent.VK_Y);
+                            robot.keyRelease(KeyEvent.VK_Y);
+                        }
+                        case "z" -> {
+                            robot.keyPress(KeyEvent.VK_Z);
+                            robot.keyRelease(KeyEvent.VK_Z);
+                        }
+                        case "A" -> {
+                            robot.keyPress(KeyEvent.VK_SHIFT);
+                            robot.keyPress(KeyEvent.VK_A);
+                            robot.keyRelease(KeyEvent.VK_A);
+                            robot.keyRelease(KeyEvent.VK_SHIFT);
+                        }
+                        case "B" -> {
+                            robot.keyPress(KeyEvent.VK_SHIFT);
+                            robot.keyPress(KeyEvent.VK_B);
+                            robot.keyRelease(KeyEvent.VK_B);
+                            robot.keyRelease(KeyEvent.VK_SHIFT);
+                        }
+                        case "C" -> {
+                            robot.keyPress(KeyEvent.VK_SHIFT);
+                            robot.keyPress(KeyEvent.VK_C);
+                            robot.keyRelease(KeyEvent.VK_C);
+                            robot.keyRelease(KeyEvent.VK_SHIFT);
+                        }
+                        case "D" -> {
+                            robot.keyPress(KeyEvent.VK_SHIFT);
+                            robot.keyPress(KeyEvent.VK_D);
+                            robot.keyRelease(KeyEvent.VK_D);
+                            robot.keyRelease(KeyEvent.VK_SHIFT);
+                        }
+                        case "E" -> {
+                            robot.keyPress(KeyEvent.VK_SHIFT);
+                            robot.keyPress(KeyEvent.VK_E);
+                            robot.keyRelease(KeyEvent.VK_E);
+                            robot.keyRelease(KeyEvent.VK_SHIFT);
+                        }
+                        case "F" -> {
+                            robot.keyPress(KeyEvent.VK_SHIFT);
+                            robot.keyPress(KeyEvent.VK_F);
+                            robot.keyRelease(KeyEvent.VK_F);
+                            robot.keyRelease(KeyEvent.VK_SHIFT);
+                        }
+                        case "G" -> {
+                            robot.keyPress(KeyEvent.VK_SHIFT);
+                            robot.keyPress(KeyEvent.VK_G);
+                            robot.keyRelease(KeyEvent.VK_G);
+                            robot.keyRelease(KeyEvent.VK_SHIFT);
+                        }
+                        case "H" -> {
+                            robot.keyPress(KeyEvent.VK_SHIFT);
+                            robot.keyPress(KeyEvent.VK_H);
+                            robot.keyRelease(KeyEvent.VK_H);
+                            robot.keyRelease(KeyEvent.VK_SHIFT);
+                        }
+                        case "I" -> {
+                            robot.keyPress(KeyEvent.VK_SHIFT);
+                            robot.keyPress(KeyEvent.VK_I);
+                            robot.keyRelease(KeyEvent.VK_I);
+                            robot.keyRelease(KeyEvent.VK_SHIFT);
+                        }
+                        case "J" -> {
+                            robot.keyPress(KeyEvent.VK_SHIFT);
+                            robot.keyPress(KeyEvent.VK_J);
+                            robot.keyRelease(KeyEvent.VK_J);
+                            robot.keyRelease(KeyEvent.VK_SHIFT);
+                        }
+                        case "K" -> {
+                            robot.keyPress(KeyEvent.VK_SHIFT);
+                            robot.keyPress(KeyEvent.VK_K);
+                            robot.keyRelease(KeyEvent.VK_K);
+                            robot.keyRelease(KeyEvent.VK_SHIFT);
+                        }
+                        case "L" -> {
+                            robot.keyPress(KeyEvent.VK_SHIFT);
+                            robot.keyPress(KeyEvent.VK_L);
+                            robot.keyRelease(KeyEvent.VK_L);
+                            robot.keyRelease(KeyEvent.VK_SHIFT);
+                        }
+                        case "M" -> {
+                            robot.keyPress(KeyEvent.VK_SHIFT);
+                            robot.keyPress(KeyEvent.VK_M);
+                            robot.keyRelease(KeyEvent.VK_M);
+                            robot.keyRelease(KeyEvent.VK_SHIFT);
+                        }
+                        case "N" -> {
+                            robot.keyPress(KeyEvent.VK_SHIFT);
+                            robot.keyPress(KeyEvent.VK_N);
+                            robot.keyRelease(KeyEvent.VK_N);
+                            robot.keyRelease(KeyEvent.VK_SHIFT);
+                        }
+                        case "O" -> {
+                            robot.keyPress(KeyEvent.VK_SHIFT);
+                            robot.keyPress(KeyEvent.VK_O);
+                            robot.keyRelease(KeyEvent.VK_O);
+                            robot.keyRelease(KeyEvent.VK_SHIFT);
+                        }
+                        case "P" -> {
+                            robot.keyPress(KeyEvent.VK_SHIFT);
+                            robot.keyPress(KeyEvent.VK_P);
+                            robot.keyRelease(KeyEvent.VK_P);
+                            robot.keyRelease(KeyEvent.VK_SHIFT);
+                        }
+                        case "Q" -> {
+                            robot.keyPress(KeyEvent.VK_SHIFT);
+                            robot.keyPress(KeyEvent.VK_Q);
+                            robot.keyRelease(KeyEvent.VK_Q);
+                            robot.keyRelease(KeyEvent.VK_SHIFT);
+                        }
+                        case "R" -> {
+                            robot.keyPress(KeyEvent.VK_SHIFT);
+                            robot.keyPress(KeyEvent.VK_R);
+                            robot.keyRelease(KeyEvent.VK_R);
+                            robot.keyRelease(KeyEvent.VK_SHIFT);
+                        }
+                        case "S" -> {
+                            robot.keyPress(KeyEvent.VK_SHIFT);
+                            robot.keyPress(KeyEvent.VK_S);
+                            robot.keyRelease(KeyEvent.VK_S);
+                            robot.keyRelease(KeyEvent.VK_SHIFT);
+                        }
+                        case "T" -> {
+                            robot.keyPress(KeyEvent.VK_SHIFT);
+                            robot.keyPress(KeyEvent.VK_T);
+                            robot.keyRelease(KeyEvent.VK_T);
+                            robot.keyRelease(KeyEvent.VK_SHIFT);
+                        }
+                        case "U" -> {
+                            robot.keyPress(KeyEvent.VK_SHIFT);
+                            robot.keyPress(KeyEvent.VK_U);
+                            robot.keyRelease(KeyEvent.VK_U);
+                            robot.keyRelease(KeyEvent.VK_SHIFT);
+                        }
+                        case "V" -> {
+                            robot.keyPress(KeyEvent.VK_SHIFT);
+                            robot.keyPress(KeyEvent.VK_V);
+                            robot.keyRelease(KeyEvent.VK_V);
+                            robot.keyRelease(KeyEvent.VK_SHIFT);
+                        }
+                        case "W" -> {
+                            robot.keyPress(KeyEvent.VK_SHIFT);
+                            robot.keyPress(KeyEvent.VK_W);
+                            robot.keyRelease(KeyEvent.VK_W);
+                            robot.keyRelease(KeyEvent.VK_SHIFT);
+                        }
+                        case "X" -> {
+                            robot.keyPress(KeyEvent.VK_SHIFT);
+                            robot.keyPress(KeyEvent.VK_X);
+                            robot.keyRelease(KeyEvent.VK_X);
+                            robot.keyRelease(KeyEvent.VK_SHIFT);
+                        }
+                        case "Y" -> {
+                            robot.keyPress(KeyEvent.VK_SHIFT);
+                            robot.keyPress(KeyEvent.VK_Y);
+                            robot.keyRelease(KeyEvent.VK_Y);
+                            robot.keyRelease(KeyEvent.VK_SHIFT);
+                        }
+                        case "Z" -> {
+                            robot.keyPress(KeyEvent.VK_SHIFT);
+                            robot.keyPress(KeyEvent.VK_Z);
+                            robot.keyRelease(KeyEvent.VK_Z);
+                            robot.keyRelease(KeyEvent.VK_SHIFT);
+                        }
+                        case "0" -> {
+                            robot.keyPress(KeyEvent.VK_0);
+                            robot.keyRelease(KeyEvent.VK_0);
+                        }
+                        case "1" -> {
+                            robot.keyPress(KeyEvent.VK_1);
+                            robot.keyRelease(KeyEvent.VK_1);
+                        }
+                        case "2" -> {
+                            robot.keyPress(KeyEvent.VK_2);
+                            robot.keyRelease(KeyEvent.VK_2);
+                        }
+                        case "3" -> {
+                            robot.keyPress(KeyEvent.VK_3);
+                            robot.keyRelease(KeyEvent.VK_3);
+                        }
+                        case "4" -> {
+                            robot.keyPress(KeyEvent.VK_4);
+                            robot.keyRelease(KeyEvent.VK_4);
+                        }
+                        case "5" -> {
+                            robot.keyPress(KeyEvent.VK_5);
+                            robot.keyRelease(KeyEvent.VK_5);
+                        }
+                        case "6" -> {
+                            robot.keyPress(KeyEvent.VK_6);
+                            robot.keyRelease(KeyEvent.VK_6);
+                        }
+                        case "7" -> {
+                            robot.keyPress(KeyEvent.VK_7);
+                            robot.keyRelease(KeyEvent.VK_7);
+                        }
+                        case "8" -> {
+                            robot.keyPress(KeyEvent.VK_8);
+                            robot.keyRelease(KeyEvent.VK_8);
+                        }
+                        case "9" -> {
+                            robot.keyPress(KeyEvent.VK_9);
+                            robot.keyRelease(KeyEvent.VK_9);
+                        }
+                        case "&" -> {
+                            robot.keyPress(KeyEvent.VK_SHIFT);
+                            robot.keyPress(KeyEvent.VK_7);
+                            robot.keyRelease(KeyEvent.VK_7);
+                            robot.keyRelease(KeyEvent.VK_SHIFT);
+                        }
+                        case "[" -> {
+                            robot.keyPress(KeyEvent.VK_OPEN_BRACKET);
+                            robot.keyRelease(KeyEvent.VK_OPEN_BRACKET);
+                        }
+                        case "]" -> {
+                            robot.keyPress(KeyEvent.VK_CLOSE_BRACKET);
+                            robot.keyRelease(KeyEvent.VK_CLOSE_BRACKET);
+                        }
+                        case "_" -> {
+                            robot.keyPress(KeyEvent.VK_SHIFT);
+                            robot.keyPress(KeyEvent.VK_SUBTRACT);
+                            robot.keyRelease(KeyEvent.VK_SUBTRACT);
+                            robot.keyRelease(KeyEvent.VK_SHIFT);
+                        }
+                        case "\n" -> {
+                            robot.keyPress(KeyEvent.VK_ENTER);
+                            robot.keyRelease(KeyEvent.VK_ENTER);
+                        }
+                        case "�" -> {
+                            robot.keyPress(KeyEvent.VK_ESCAPE);
+                            robot.keyRelease(KeyEvent.VK_ESCAPE);
+                        }
+                    }
+                //}
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -238,6 +493,18 @@ public class SbMod {
                 else {
                     printMsgTimer ++;
                 }
+            }
+            //AutoSpawnMob
+            try {
+                if (spawnMobs) {
+                    if (spawnTime >= 1500) {
+                        lp.chatSigned(AutoSpawnMob.command, Component.literal(""));
+                        spawnTime = 0;
+                    }
+                    spawnTime++;
+                }
+            } catch (Exception e) {
+                ;
             }
             //AutoFix
             if (autoFix && !coolDown) {
@@ -476,7 +743,7 @@ public class SbMod {
             enchantOther = false;
             enchantAxe = false;
             enchant = false;
-            spawnmobs = false;
+            spawnMobs = false;
             autoFix = false;
         }
 
@@ -506,6 +773,7 @@ public class SbMod {
             AutoFix.register(event.getDispatcher());
             CommandAliases.register((event.getDispatcher()));
             AutoPrivate.register(event.getDispatcher());
+            AutoSpawnMob.register(event.getDispatcher());
         }
     }
 }
