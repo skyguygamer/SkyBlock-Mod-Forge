@@ -27,7 +27,7 @@ displayName="Skyblock Mod" #mandatory
 # A URL for the "homepage" for this mod, displayed in the mod UI
 #displayURL="https://change.me.to.your.mods.homepage.example.invalid/" #optional
 # A file name (in the root of the mod JAR) containing a logo for display
-logoFile="examplemod.png" #optional
+logoFile="assets/sbmod/sbmodicon.png" #optional
 # A text field displayed in the mod UI
 credits="Traumatophobia's SBMod, updated by m0gliE" #optional
 # A text field displayed in the mod UI
@@ -43,7 +43,7 @@ authors="SkyGuyGamer" #optional
 # The description text for the mod (multi line!) (#mandatory)
 description='''
 No
-Don;t
+Don't
 Think
 About
 It

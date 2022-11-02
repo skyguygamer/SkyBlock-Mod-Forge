@@ -4,14 +4,11 @@ import com.mojang.brigadier.Command;
 import com.mojang.brigadier.CommandDispatcher;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.network.chat.*;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
-import net.minecraftforge.client.event.CustomizeGuiOverlayEvent;
 import net.skyguygamer.sbmod.SbMod;
 
 public class EnchantAllCommand {
@@ -68,7 +65,7 @@ public class EnchantAllCommand {
                 SbMod.enchantOther = true;
                 SbMod.pressTime = 0;
                 SbMod.enchant = true;
-            }
+            } else {source.sendSuccess(Component.literal(ChatFormatting.DARK_PURPLE +"Please enchant an item that can be enchanted!"), false);}
         } else {
             source.sendSuccess(Component.literal(ChatFormatting.RED+"Wait until current item has finished enchanting!"), false);
         }

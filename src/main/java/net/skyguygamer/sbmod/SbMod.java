@@ -69,7 +69,6 @@ public class SbMod {
 
             try {
                 //if(!GraphicsEnvironment.isHeadless()) {
-                    System.setProperty("java.awt.AWTException", "false");
                     Robot robot = new Robot();
                     robot.keyRelease(KeyEvent.VK_SHIFT);
                     switch (character) {
@@ -473,8 +472,10 @@ public class SbMod {
                 printMsg = true;
             }
         }
+        //Straight up doesn't work
         @SubscribeEvent
-        public static void onChatReceive(ClientChatReceivedEvent event) {
+        public void onChatReceive(ClientChatReceivedEvent event) {
+            //event.setCanceled(true);
         }
 
 
