@@ -1,6 +1,6 @@
 # SkyBlock Mod `WIP`
 #### This is a mod for skyblock.net
-#### Version `1.19.2`
+#### Version `1.19.2` `forge`
 
 #### List of commands:
 ```
