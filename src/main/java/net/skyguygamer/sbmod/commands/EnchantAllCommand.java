@@ -6,8 +6,12 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
+import net.minecraft.core.NonNullList;
 import net.minecraft.network.chat.*;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.skyguygamer.sbmod.SbMod;
 
@@ -18,7 +22,14 @@ public class EnchantAllCommand {
     }
 
     public static int run(CommandSourceStack source) {
+        //for (ItemStack item : Minecraft.getInstance().player.getInventory().items) {
+         //   if (item.isEnchantable() && !item.isStackable()) {
+          //      int slot = Minecraft.getInstance().player.getInventory().selected;
+          //
+          //  }
+        //}
 
+        int availableSlot = Minecraft.getInstance().player.getInventory().getSuitableHotbarSlot();
         Item item = Minecraft.getInstance().player.getMainHandItem().getItem();
         if (!SbMod.enchant) {
             if (item == Items.NETHERITE_PICKAXE || item == Items.NETHERITE_SHOVEL || item == Items.DIAMOND_PICKAXE || item == Items.DIAMOND_SHOVEL || item == Items.IRON_PICKAXE || item == Items.IRON_SHOVEL || item == Items.STONE_PICKAXE || item == Items.STONE_SHOVEL || item == Items.GOLDEN_PICKAXE || item == Items.GOLDEN_SHOVEL || item == Items.WOODEN_PICKAXE || item == Items.WOODEN_SHOVEL|| item == Items.SHEARS) {
