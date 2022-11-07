@@ -38,7 +38,7 @@ public final class JoinCommand {
 
         }
         dispatcher.register(Commands.literal("joincommand")
-                .then(Commands.literal("add").then(Commands.argument("command", StringArgumentType.string()).executes(JoinCommand -> add(JoinCommand.getSource(),
+                .then(Commands.literal("add").then(Commands.argument("command", StringArgumentType.greedyString()).executes(JoinCommand -> add(JoinCommand.getSource(),
                                 StringArgumentType.getString(JoinCommand, "command"), commands, success
 
                         )))
@@ -50,7 +50,7 @@ public final class JoinCommand {
 
 
         dispatcher.register(Commands.literal("jc")
-                .then(Commands.literal("add").then(Commands.argument("command", StringArgumentType.string()).executes(JoinCommand -> add(JoinCommand.getSource(),
+                .then(Commands.literal("add").then(Commands.argument("command", StringArgumentType.greedyString()).executes(JoinCommand -> add(JoinCommand.getSource(),
                                 StringArgumentType.getString(JoinCommand, "command"), commands, success
 
                         )))

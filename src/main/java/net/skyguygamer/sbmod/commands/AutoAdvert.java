@@ -13,6 +13,8 @@ import net.minecraft.commands.Commands;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.commands.ExecuteCommand;
 
+import static net.skyguygamer.sbmod.SbMod.advertTimer;
+
 
 public final class AutoAdvert
 {
@@ -24,7 +26,7 @@ public final class AutoAdvert
     {
 
         dispatcher.register(Commands.literal("autoadvert")
-                .then(Commands.literal("message").then(Commands.argument("messagetosend", StringArgumentType.string()).executes(AutoAdvert -> advert(AutoAdvert.getSource(),
+                .then(Commands.literal("message").then(Commands.argument("messagetosend", StringArgumentType.greedyString()).executes(AutoAdvert -> advert(AutoAdvert.getSource(),
                         StringArgumentType.getString(AutoAdvert, "messagetosend")))))
                 .then(Commands.literal("time").then(Commands.argument("amountofminutes", IntegerArgumentType.integer(5)).executes(AutoAdvert -> time(AutoAdvert.getSource(),
                         IntegerArgumentType.getInteger(AutoAdvert, "amountofminutes"))
@@ -32,7 +34,7 @@ public final class AutoAdvert
                 .then(Commands.literal("info").executes(AutoAdvert -> info(AutoAdvert.getSource())))
                 .executes(AutoAdvert -> stop(AutoAdvert.getSource())));
         dispatcher.register(Commands.literal("advert")
-                .then(Commands.literal("message").then(Commands.argument("messagetosend", StringArgumentType.string()).executes(AutoAdvert -> advert(AutoAdvert.getSource(),
+                .then(Commands.literal("message").then(Commands.argument("messagetosend", StringArgumentType.greedyString()).executes(AutoAdvert -> advert(AutoAdvert.getSource(),
                         StringArgumentType.getString(AutoAdvert, "messagetosend")))))
                 .then(Commands.literal("time").then(Commands.argument("amountofminutes", IntegerArgumentType.integer(5)).executes(AutoAdvert -> time(AutoAdvert.getSource(),
                         IntegerArgumentType.getInteger(AutoAdvert, "amountofminutes"))
@@ -49,9 +51,13 @@ public final class AutoAdvert
         return Command.SINGLE_SUCCESS;
     }
     private static int info(CommandSourceStack source) {
+        int time = interval-advertTimer;
+        int timeRemaining = (time/20)/60;
+        int seconds = (time/20)%60;
         if(sendingmessages) {
             source.sendSuccess(Component.literal("§aYou are currently sending §f" + message), false);
             source.sendSuccess(Component.literal("§aYou are sending messages every §f" + interval/1200 + " §aminutes"), false);
+            source.sendSuccess(Component.literal("§aTime remaining§f: " + timeRemaining + " §aminutes, §f" + seconds + " §aseconds"), false);
         } else {
             source.sendSuccess(Component.literal("§cYou are not sending any messages right now!"), false);
         }

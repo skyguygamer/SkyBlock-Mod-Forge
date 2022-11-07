@@ -9,10 +9,12 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraftforge.client.ClientCommandHandler;
+import net.minecraftforge.client.event.ClientChatEvent;
 import net.minecraftforge.client.event.ClientChatReceivedEvent;
 import net.minecraftforge.client.event.ClientPlayerNetworkEvent;
 import net.minecraftforge.client.event.RegisterClientCommandsEvent;
 import net.minecraftforge.event.RegisterCommandsEvent;
+import net.minecraftforge.event.ServerChatEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -473,10 +475,24 @@ public class SbMod {
             }
         }
         //Straight up doesn't work
-        @SubscribeEvent
-        public void onChatReceive(ClientChatReceivedEvent event) {
-            //event.setCanceled(true);
+
+        /*@SubscribeEvent
+        public static void onChat2(ServerChatEvent.Submitted event) {
+            event.setCanceled(true);
         }
+        */
+
+        /*@SubscribeEvent
+        public static void onChatrecieve(ClientChatReceivedEvent event) {
+            event.setCanceled(true);
+        }
+
+         */
+        @SubscribeEvent
+        public static void on(ClientChatReceivedEvent e) {
+            
+        }
+
 
 
         @SubscribeEvent

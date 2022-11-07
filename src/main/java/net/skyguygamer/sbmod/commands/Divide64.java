@@ -18,8 +18,8 @@ public class Divide64 {
 
     private static int run(CommandSourceStack source, double amount) {
          double total = amount/64.0;
-         String.format("%.2f", total);
-        source.sendSuccess(((Component.translatable(" - ").withStyle(ChatFormatting.RED)).append(Component.literal(amount + " / " + " 64 " + " = " + String.format("%.2f", total)).withStyle(ChatFormatting.GREEN))), false);
+         double remainder = amount%64;
+         source.sendSuccess(((Component.translatable(ChatFormatting.RED + " - " + ChatFormatting.GREEN +  String.format("%.0f", amount) + " / 64"  + " = " + ChatFormatting.WHITE + String.format("%.2f", total) + ChatFormatting.GREEN + " or " + ChatFormatting.WHITE + String.format("%.0f", total) + ChatFormatting.GREEN + " stacks and " + ChatFormatting.WHITE + String.format("%.0f", remainder) + ChatFormatting.GREEN + " grass"))), false);
 
         return Command.SINGLE_SUCCESS;
 
