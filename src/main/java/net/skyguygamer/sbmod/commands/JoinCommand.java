@@ -100,7 +100,7 @@ public final class JoinCommand {
     }
     private static int delete(CommandSourceStack source, int numinlist, ArrayList<String> commands, Boolean success) {
         try {
-            commands.remove(numinlist);
+            commands.remove(numinlist-1);
             success = true;
         } catch (Exception e) {
             source.sendSuccess(Component.literal("Invalid, please check your index # (/joincommand list)").withStyle(ChatFormatting.RED), false);
@@ -132,7 +132,7 @@ public final class JoinCommand {
             source.sendSuccess(Component.literal("Kinda lonely here :("), false);
         }
         for (int i = 0; i < commands.size(); i++) {
-            source.sendSuccess(Component.literal(String.valueOf(i)+": /"+commands.get(i)), false);
+            source.sendSuccess(Component.literal(String.valueOf(i+1)+": /"+commands.get(i)), false);
         }
         source.sendSuccess(Component.literal("****************************************").withStyle(ChatFormatting.GREEN), false);
 
