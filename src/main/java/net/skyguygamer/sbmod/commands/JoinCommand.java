@@ -63,6 +63,9 @@ public final class JoinCommand {
     }
 
     private static int add(CommandSourceStack source, String command, ArrayList<String> commands, Boolean success) {
+        if (command.startsWith("/")) {
+            command = command.substring(1);
+        }
         if (command.equals("")) {
             source.sendSuccess(Component.literal("Please enter a command").withStyle(ChatFormatting.RED), false);
         }
@@ -73,7 +76,7 @@ public final class JoinCommand {
             }
             commands.add(addtolist);
             success = true;
-            source.sendSuccess(Component.literal(addtolist+" will be executed whenever you join").withStyle(ChatFormatting.DARK_AQUA),false);
+            source.sendSuccess(Component.literal("/" + addtolist+" will be executed whenever you join").withStyle(ChatFormatting.DARK_AQUA),false);
             }
         if (success) {
             PrintWriter writer;
@@ -125,8 +128,11 @@ public final class JoinCommand {
 
     private static int listJc(CommandSourceStack source, ArrayList<String> commands) {
         source.sendSuccess(Component.literal("****************************************").withStyle(ChatFormatting.GREEN), false);
+        if (commands.size()==0) {
+            source.sendSuccess(Component.literal("Kinda lonely here :("), false);
+        }
         for (int i = 0; i < commands.size(); i++) {
-            source.sendSuccess(Component.literal(String.valueOf(i)+": "+commands.get(i)).withStyle(ChatFormatting.DARK_AQUA), false);
+            source.sendSuccess(Component.literal(String.valueOf(i)+": /"+commands.get(i)), false);
         }
         source.sendSuccess(Component.literal("****************************************").withStyle(ChatFormatting.GREEN), false);
 
