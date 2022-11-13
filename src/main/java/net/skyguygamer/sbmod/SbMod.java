@@ -8,11 +8,9 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.ClientCommandHandler;
-import net.minecraftforge.client.event.ClientChatEvent;
-import net.minecraftforge.client.event.ClientChatReceivedEvent;
-import net.minecraftforge.client.event.ClientPlayerNetworkEvent;
-import net.minecraftforge.client.event.RegisterClientCommandsEvent;
+import net.minecraftforge.client.event.*;
 import net.minecraftforge.event.RegisterCommandsEvent;
 import net.minecraftforge.event.ServerChatEvent;
 import net.minecraftforge.event.TickEvent;
@@ -25,6 +23,7 @@ import net.minecraftforge.fml.loading.targets.CommonLaunchHandler;
 import net.minecraftforge.fml.loading.targets.FMLClientLaunchHandler;
 import net.skyguygamer.sbmod.commands.*;
 import net.skyguygamer.sbmod.config.SbModClientConfigs;
+import net.skyguygamer.sbmod.util.KeyBinding;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -421,6 +420,30 @@ public class SbMod {
     @Mod.EventBusSubscriber(modid = "sbmod")
 
     public static class EventHandlers {
+        //Registering Keybindings
+
+        @SubscribeEvent
+        public static void onKeyInput(InputEvent.Key event) {
+            if(KeyBinding.backKey.consumeClick()) {
+                Minecraft.getInstance().player.chatSigned("/back", Component.literal(""));
+            }
+            if(KeyBinding.jumpKey.consumeClick()) {
+                Minecraft.getInstance().player.chatSigned("/jump", Component.literal(""));
+            }
+            if(KeyBinding.ehomeKey.consumeClick()) {
+                Minecraft.getInstance().player.chatSigned("/ehome", Component.literal(""));
+            }
+            if(KeyBinding.craftKey.consumeClick()) {
+                Minecraft.getInstance().player.chatSigned("/craft", Component.literal(""));
+            }
+            if(KeyBinding.homeKey.consumeClick()) {
+                Minecraft.getInstance().player.chatSigned("/home", Component.literal(""));
+            }
+            if(KeyBinding.ecKey.consumeClick()) {
+                Minecraft.getInstance().player.chatSigned("/ec", Component.literal(""));
+            }
+
+        }
 
         @SubscribeEvent
         public static void logOn(ClientPlayerNetworkEvent.LoggingIn event)  {
@@ -488,6 +511,9 @@ public class SbMod {
         }
 
          */
+
+
+
         @SubscribeEvent
         public static void on(ClientChatReceivedEvent e) {
             
@@ -556,17 +582,17 @@ public class SbMod {
             try {
                 if (pressTime == 0 && enchantAxe) {
                     lp.chatSigned("/enchant sharpness 5", Component.literal(""));
-                } else if (pressTime == 40 && enchantAxe) {
+                } else if (pressTime == 20 && enchantAxe) {
                     lp.chatSigned("/enchant smite 5", Component.literal(""));
-                } else if (pressTime == 80 && enchantAxe) {
+                } else if (pressTime == 40 && enchantAxe) {
                     lp.chatSigned("/enchant baneofarthropods 5", Component.literal(""));
-                } else if (pressTime == 120 && enchantAxe) {
+                } else if (pressTime == 60 && enchantAxe) {
                     lp.chatSigned("/enchant efficiency 5", Component.literal(""));
-                } else if (pressTime == 160 && enchantAxe) {
+                } else if (pressTime == 80 && enchantAxe) {
                     lp.chatSigned("/enchant unbreaking 3", Component.literal(""));
-                } else if (pressTime == 200 && enchantAxe) {
+                } else if (pressTime == 100 && enchantAxe) {
                     lp.chatSigned("/enchant fortune 3", Component.literal(""));
-                } else if (pressTime == 240 && enchantAxe) {
+                } else if (pressTime == 120 && enchantAxe) {
                     lp.chatSigned("/enchant mending 1", Component.literal(""));
                     enchantAxe = false;
                     enchant = false;
@@ -574,28 +600,28 @@ public class SbMod {
                 if (pressTime == 0 && enchantSword) {
                     lp.chatSigned("/enchant sharpness 5", Component.literal(""));
                 }
-                else if (pressTime == 40 && enchantSword) {
+                else if (pressTime == 20 && enchantSword) {
                     lp.chatSigned("/enchant smite 5", Component.literal(""));
                 }
-                else if (pressTime == 80 && enchantSword) {
+                else if (pressTime == 40 && enchantSword) {
                     lp.chatSigned("/enchant baneofarthropods 5", Component.literal(""));
                 }
-                else if (pressTime == 120 && enchantSword) {
+                else if (pressTime == 60 && enchantSword) {
                     lp.chatSigned("/enchant fireaspect 2", Component.literal(""));
                 }
-                else if (pressTime == 160 && enchantSword) {
+                else if (pressTime == 80 && enchantSword) {
                     lp.chatSigned("/enchant looting 3", Component.literal(""));
                 }
-                else if (pressTime == 200 && enchantSword) {
+                else if (pressTime == 100 && enchantSword) {
                     lp.chatSigned("/enchant knockback 2", Component.literal(""));
                 }
-                else if (pressTime == 240 && enchantSword) {
+                else if (pressTime == 120 && enchantSword) {
                     lp.chatSigned("/enchant sweepingedge 3", Component.literal(""));
                 }
-                else if (pressTime == 280 && enchantSword) {
+                else if (pressTime == 140 && enchantSword) {
                     lp.chatSigned("/enchant unbreaking 3", Component.literal(""));
                 }
-                else if (pressTime == 320 && enchantSword) {
+                else if (pressTime == 160 && enchantSword) {
                     lp.chatSigned("/enchant mending 1", Component.literal(""));
                     enchantSword = false;
                     enchant = false;
@@ -603,13 +629,13 @@ public class SbMod {
                 if (pressTime == 0 && enchantTool) {
                     lp.chatSigned("/enchant efficiency 5", Component.literal(""));
                 }
-                else if (pressTime == 40 && enchantTool) {
+                else if (pressTime == 20 && enchantTool) {
                     lp.chatSigned("/enchant unbreaking  3", Component.literal(""));
                 }
-                else if (pressTime == 80 && enchantTool) {
+                else if (pressTime == 40 && enchantTool) {
                     lp.chatSigned("/enchant mending 1", Component.literal(""));
                 }
-                else if (pressTime == 120 && enchantTool) {
+                else if (pressTime == 60 && enchantTool) {
                     lp.chatSigned("/enchant fortune 3", Component.literal(""));
                     enchantTool = false;
                     enchant = false;
@@ -617,22 +643,22 @@ public class SbMod {
                 if (pressTime == 0 && enchantChest) {
                     lp.chatSigned("/enchant protection 4", Component.literal(""));
                 }
-                else if (pressTime == 40 && enchantChest) {
+                else if (pressTime == 20 && enchantChest) {
                     lp.chatSigned("/enchant fireprotection 4", Component.literal(""));
                 }
-                else if (pressTime == 80 && enchantChest) {
+                else if (pressTime == 40 && enchantChest) {
                     lp.chatSigned("/enchant blastprotection 4", Component.literal(""));
                 }
-                else if (pressTime == 120 && enchantChest) {
+                else if (pressTime == 60 && enchantChest) {
                     lp.chatSigned("/enchant projectileprotection 4", Component.literal(""));
                 }
-                else if (pressTime == 160 && enchantChest) {
+                else if (pressTime == 80 && enchantChest) {
                     lp.chatSigned("/enchant unbreaking 3", Component.literal(""));
                 }
-                else if (pressTime == 200 && enchantChest) {
+                else if (pressTime == 100 && enchantChest) {
                     lp.chatSigned("/enchant thorns 3", Component.literal(""));
                 }
-                else if (pressTime == 240 && enchantChest) {
+                else if (pressTime == 120 && enchantChest) {
                     lp.chatSigned("/enchant mending 1", Component.literal(""));
                     enchantChest = false;
                     enchant = false;
@@ -641,19 +667,19 @@ public class SbMod {
                 if (pressTime == 0 && enchantBow) {
                     lp.chatSigned("/enchant power 5", Component.literal(""));
                 }
-                else if (pressTime == 40 && enchantBow) {
+                else if (pressTime == 20 && enchantBow) {
                     lp.chatSigned("/enchant punch 2", Component.literal(""));
                 }
-                else if (pressTime == 80 && enchantBow) {
+                else if (pressTime == 40 && enchantBow) {
                     lp.chatSigned("/enchant unbreaking 3", Component.literal(""));
                 }
-                else if (pressTime == 120 && enchantBow) {
+                else if (pressTime == 60 && enchantBow) {
                     lp.chatSigned("/enchant flame 1", Component.literal(""));
                 }
-                else if (pressTime == 160 && enchantBow) {
+                else if (pressTime == 80 && enchantBow) {
                     lp.chatSigned("/enchant mending 1", Component.literal(""));
                 }
-                else if (pressTime == 200 && enchantBow) {
+                else if (pressTime == 100 && enchantBow) {
                     lp.chatSigned("/enchant infinity 1", Component.literal(""));
                     enchantBow = false;
                     enchant = false;
@@ -662,28 +688,28 @@ public class SbMod {
                 if (pressTime == 0 && enchantHelmet) {
                     lp.chatSigned("/enchant protection 4", Component.literal(""));
                 }
-                else if (pressTime == 40 && enchantHelmet) {
+                else if (pressTime == 20 && enchantHelmet) {
                     lp.chatSigned("/enchant fireprotection 4", Component.literal(""));
                 }
-                else if (pressTime == 80 && enchantHelmet) {
+                else if (pressTime == 40 && enchantHelmet) {
                     lp.chatSigned("/enchant blastprotection 4", Component.literal(""));
                 }
-                else if (pressTime == 120 && enchantHelmet) {
+                else if (pressTime == 60 && enchantHelmet) {
                     lp.chatSigned("/enchant projectileprotection 4", Component.literal(""));
                 }
-                else if (pressTime == 160 && enchantHelmet) {
+                else if (pressTime == 80 && enchantHelmet) {
                     lp.chatSigned("/enchant unbreaking 3", Component.literal(""));
                 }
-                else if (pressTime == 200 && enchantHelmet) {
+                else if (pressTime == 100 && enchantHelmet) {
                     lp.chatSigned("/enchant thorns 3", Component.literal(""));
                 }
-                else if (pressTime == 240 && enchantHelmet) {
+                else if (pressTime == 120 && enchantHelmet) {
                     lp.chatSigned("/enchant mending 1", Component.literal(""));
                 }
-                else if (pressTime == 280 && enchantHelmet) {
+                else if (pressTime == 140 && enchantHelmet) {
                     lp.chatSigned("/enchant respiration 3", Component.literal(""));
                 }
-                else if (pressTime == 320 && enchantHelmet) {
+                else if (pressTime == 160 && enchantHelmet) {
                     lp.chatSigned("/enchant aquaaffinity 1", Component.literal(""));
                     enchantHelmet = false;
                     enchant = false;
@@ -691,28 +717,28 @@ public class SbMod {
                 if (pressTime == 0 && enchantBoots) {
                     lp.chatSigned("/enchant protection 4", Component.literal(""));
                 }
-                else if (pressTime == 40 && enchantBoots) {
+                else if (pressTime == 20 && enchantBoots) {
                     lp.chatSigned("/enchant fireprotection 4", Component.literal(""));
                 }
-                else if (pressTime == 80 && enchantBoots) {
+                else if (pressTime == 40 && enchantBoots) {
                     lp.chatSigned("/enchant blastprotection 4", Component.literal(""));
                 }
-                else if (pressTime == 120 && enchantBoots) {
+                else if (pressTime == 60 && enchantBoots) {
                     lp.chatSigned("/enchant projectileprotection 4", Component.literal(""));
                 }
-                else if (pressTime == 160 && enchantBoots) {
+                else if (pressTime == 80 && enchantBoots) {
                     lp.chatSigned("/enchant unbreaking 3", Component.literal(""));
                 }
-                else if (pressTime == 200 && enchantBoots) {
+                else if (pressTime == 100 && enchantBoots) {
                     lp.chatSigned("/enchant thorns 3", Component.literal(""));
                 }
-                else if (pressTime == 240 && enchantBoots) {
+                else if (pressTime == 120 && enchantBoots) {
                     lp.chatSigned("/enchant mending 1", Component.literal(""));
                 }
-                else if (pressTime == 280 && enchantBoots) {
+                else if (pressTime == 140 && enchantBoots) {
                     lp.chatSigned("/enchant depth_strider 3", Component.literal(""));
                 }
-                else if (pressTime == 320 && enchantBoots) {
+                else if (pressTime == 160 && enchantBoots) {
                     lp.chatSigned("/enchant featherfalling 4", Component.literal(""));
                     enchantBoots = false;
                     enchant = false;
@@ -720,13 +746,13 @@ public class SbMod {
                 if (pressTime == 0 && enchantRod) {
                     lp.chatSigned("/enchant lure 3", Component.literal(""));
                 }
-                else if (pressTime == 40 && enchantRod) {
+                else if (pressTime == 20 && enchantRod) {
                     lp.chatSigned("/enchant luck 3", Component.literal(""));
                 }
-                else if (pressTime == 80 && enchantRod) {
+                else if (pressTime == 40 && enchantRod) {
                     lp.chatSigned("/enchant unbreaking 3", Component.literal(""));
                 }
-                else if (pressTime == 120 && enchantRod) {
+                else if (pressTime == 60 && enchantRod) {
                     lp.chatSigned("/enchant mending 1", Component.literal(""));
                     enchantRod = false;
                     enchant = false;
@@ -734,7 +760,7 @@ public class SbMod {
                 if (pressTime == 0 && enchantOther) {
                     lp.chatSigned("/enchant unbreaking 3", Component.literal(""));
                 }
-                else if (pressTime == 40 && enchantOther) {
+                else if (pressTime == 20 && enchantOther) {
                     lp.chatSigned("/enchant mending 1", Component.literal(""));
                     enchantOther = false;
                     enchant = false;
@@ -791,6 +817,18 @@ public class SbMod {
             CommandAliases.register((event.getDispatcher()));
             AutoPrivate.register(event.getDispatcher());
             AutoSpawnMob.register(event.getDispatcher());
+        }
+    }
+    @Mod.EventBusSubscriber(modid = "sbmod", value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.MOD)
+    public static class ClientModBusEvents {
+        @SubscribeEvent
+        public static void onKeyRegister(RegisterKeyMappingsEvent event) {
+            event.register(KeyBinding.backKey);
+            event.register(KeyBinding.jumpKey);
+            event.register(KeyBinding.ehomeKey);
+            event.register(KeyBinding.craftKey);
+            event.register(KeyBinding.homeKey);
+            event.register(KeyBinding.ecKey);
         }
     }
 }
