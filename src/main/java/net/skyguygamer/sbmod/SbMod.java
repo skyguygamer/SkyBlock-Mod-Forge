@@ -31,10 +31,15 @@ import java.io.*;
 import java.util.*;
 import java.util.List;
 
+import static net.skyguygamer.sbmod.SbMod.autoBuy;
+import static net.skyguygamer.sbmod.SbMod.autoBuyTime;
+
 //test
 // The value here should match an entry in the META-INF/mods.toml file
 @Mod(SbMod.MOD_ID)
 public class SbMod {
+    public static boolean autoBuy = false;
+    public static int autoBuyTime = 0;
     public static int firstCheck = 1;
     public static int modsCheck = 0;
     public static Boolean loggingIn = false;
@@ -64,6 +69,19 @@ public class SbMod {
     public static int printMsgTimer = 0;
     public static boolean spawnMobs = false;
     public static int spawnTime = 0;
+
+    //UnEnchant
+    public static boolean unEnchantTool = false;
+    public static boolean unEnchantChest = false;
+    public static boolean unEnchantBow = false;
+    public static boolean unEnchantHelmet = false;
+    public static boolean unEnchantBoots = false;
+    public static boolean unEnchantRod = false;
+    public static boolean unEnchantOther = false;
+    public static boolean unEnchantAxe = false;
+    public static boolean unEnchant = false;
+    public static boolean unEnchantSword = false;
+
     public static void convertText(String text) {
         for (int i = 0; i < text.length(); i ++) {
             String character = String.valueOf(text.charAt(i));
@@ -497,279 +515,376 @@ public class SbMod {
                 printMsg = true;
             }
         }
-        //Straight up doesn't work
-
-        /*@SubscribeEvent
-        public static void onChat2(ServerChatEvent.Submitted event) {
-            event.setCanceled(true);
-        }
-        */
-
-        /*@SubscribeEvent
-        public static void onChatrecieve(ClientChatReceivedEvent event) {
-            event.setCanceled(true);
-        }
-
-         */
-
-
-
-        @SubscribeEvent
-        public static void on(ClientChatReceivedEvent e) {
-            
-        }
-
-
 
         @SubscribeEvent
         public static void tick(TickEvent.ClientTickEvent event) {
-            LocalPlayer lp = Minecraft.getInstance().player;
-            //AutoPrivate
-            if (printMsg) {
-                if (printMsgTimer >= 10) {
-                    if (autoPrivate) {
-                        convertText(AutoPrivate.text);
+            if (event.phase == TickEvent.Phase.START) {
+                LocalPlayer lp = Minecraft.getInstance().player;
+                //AutoPrivate
+                if (printMsg) {
+                    if (printMsgTimer >= 10) {
+                        if (autoPrivate) {
+                            convertText(AutoPrivate.text);
+                        }
+                        printMsg = false;
+                        printMsgTimer = 0;
+                    } else {
+                        printMsgTimer++;
                     }
-                    printMsg = false;
-                    printMsgTimer = 0;
                 }
-                else {
-                    printMsgTimer ++;
-                }
-            }
-            //AutoSpawnMob
-            try {
-                if (spawnMobs) {
-                    if (spawnTime >= 1500) {
-                        lp.chatSigned(AutoSpawnMob.command, Component.literal(""));
-                        spawnTime = 0;
-                    }
-                    spawnTime++;
-                }
-            } catch (Exception e) {
-                ;
-            }
-            //AutoFix
-            if (autoFix && !coolDown) {
-
-                ItemStack item = Minecraft.getInstance().player.getMainHandItem();
-                float percent = 100*(((float) item.getMaxDamage() - (float) item.getDamageValue())/ (float) item.getMaxDamage());
+                //AutoSpawnMob
                 try {
-                    if (percent < 25 && autoFix && item.isDamageableItem() && !coolDown) {
-                        lp.chatSigned("/fix all", Component.literal(""));
-                        coolDown = true;
+                    if (spawnMobs) {
+                        if (spawnTime >= 1500) {
+                            lp.chatSigned(AutoSpawnMob.command, Component.literal(""));
+                            spawnTime = 0;
+                        }
+                        spawnTime++;
+                    }
+                } catch (Exception e) {
+                    ;
+                }
+                //AutoFix
+                if (autoFix && !coolDown) {
+
+                    ItemStack item = Minecraft.getInstance().player.getMainHandItem();
+                    float percent = 100 * (((float) item.getMaxDamage() - (float) item.getDamageValue()) / (float) item.getMaxDamage());
+                    try {
+                        if (percent < 25 && autoFix && item.isDamageableItem() && !coolDown) {
+                            lp.chatSigned("/fix all", Component.literal(""));
+                            coolDown = true;
+                        }
+                    } catch (Exception e) {
+                    }
+                }
+                //Cool down for AutoFix
+                if (coolDown) {
+                    if (coolDownCounter >= 24020) {
+                        coolDown = false;
+                        coolDownCounter = 0;
+                    }
+                    coolDownCounter++;
+                }
+                //AutoBuyTEMP
+                if (autoBuy) {
+                    if (autoBuyTime >= 36000) {
+                        lp.chatSigned("/lottery buy 2", Component.literal(""));
+                        autoBuyTime = 0;
+                    }
+                    autoBuyTime++;
+                }
+                //AutoAdvert
+                if (AutoAdvert.sendingmessages) {
+                    if (advertTimer >= AutoAdvert.interval) {
+
+                        lp.chatSigned(AutoAdvert.message, Component.literal(""));
+                        advertTimer = 0;
+                    }
+                    advertTimer++;
+                }
+                //AutoEnchanting
+                try {
+                    if (pressTime == 0 && enchantAxe) {
+                        lp.chatSigned("/enchant sharpness 5", Component.literal(""));
+                    } else if (pressTime == 15 && enchantAxe) {
+                        lp.chatSigned("/enchant smite 5", Component.literal(""));
+                    } else if (pressTime == 30 && enchantAxe) {
+                        lp.chatSigned("/enchant baneofarthropods 5", Component.literal(""));
+                    } else if (pressTime == 45 && enchantAxe) {
+                        lp.chatSigned("/enchant efficiency 5", Component.literal(""));
+                    } else if (pressTime == 60 && enchantAxe) {
+                        lp.chatSigned("/enchant unbreaking 3", Component.literal(""));
+                    } else if (pressTime == 75 && enchantAxe) {
+                        lp.chatSigned("/enchant fortune 3", Component.literal(""));
+                    } else if (pressTime == 90 && enchantAxe) {
+                        lp.chatSigned("/enchant mending 1", Component.literal(""));
+                        enchantAxe = false;
+                        enchant = false;
+                    }
+                    if (pressTime == 0 && enchantSword) {
+                        lp.chatSigned("/enchant sharpness 5", Component.literal(""));
+                    } else if (pressTime == 15 && enchantSword) {
+                        lp.chatSigned("/enchant smite 5", Component.literal(""));
+                    } else if (pressTime == 30 && enchantSword) {
+                        lp.chatSigned("/enchant baneofarthropods 5", Component.literal(""));
+                    } else if (pressTime == 45 && enchantSword) {
+                        lp.chatSigned("/enchant fireaspect 2", Component.literal(""));
+                    } else if (pressTime == 60 && enchantSword) {
+                        lp.chatSigned("/enchant looting 3", Component.literal(""));
+                    } else if (pressTime == 75 && enchantSword) {
+                        lp.chatSigned("/enchant knockback 2", Component.literal(""));
+                    } else if (pressTime == 90 && enchantSword) {
+                        lp.chatSigned("/enchant sweepingedge 3", Component.literal(""));
+                    } else if (pressTime == 105 && enchantSword) {
+                        lp.chatSigned("/enchant unbreaking 3", Component.literal(""));
+                    } else if (pressTime == 120 && enchantSword) {
+                        lp.chatSigned("/enchant mending 1", Component.literal(""));
+                        enchantSword = false;
+                        enchant = false;
+                    }
+                    if (pressTime == 0 && enchantTool) {
+                        lp.chatSigned("/enchant efficiency 5", Component.literal(""));
+                    } else if (pressTime == 15 && enchantTool) {
+                        lp.chatSigned("/enchant unbreaking  3", Component.literal(""));
+                    } else if (pressTime == 30 && enchantTool) {
+                        lp.chatSigned("/enchant mending 1", Component.literal(""));
+                    } else if (pressTime == 45 && enchantTool) {
+                        lp.chatSigned("/enchant fortune 3", Component.literal(""));
+                        enchantTool = false;
+                        enchant = false;
+                    }
+                    if (pressTime == 0 && enchantChest) {
+                        lp.chatSigned("/enchant protection 4", Component.literal(""));
+                    } else if (pressTime == 15 && enchantChest) {
+                        lp.chatSigned("/enchant fireprotection 4", Component.literal(""));
+                    } else if (pressTime == 30 && enchantChest) {
+                        lp.chatSigned("/enchant blastprotection 4", Component.literal(""));
+                    } else if (pressTime == 45 && enchantChest) {
+                        lp.chatSigned("/enchant projectileprotection 4", Component.literal(""));
+                    } else if (pressTime == 60 && enchantChest) {
+                        lp.chatSigned("/enchant unbreaking 3", Component.literal(""));
+                    } else if (pressTime == 75 && enchantChest) {
+                        lp.chatSigned("/enchant thorns 3", Component.literal(""));
+                    } else if (pressTime == 90 && enchantChest) {
+                        lp.chatSigned("/enchant mending 1", Component.literal(""));
+                        enchantChest = false;
+                        enchant = false;
+                    }
+
+                    if (pressTime == 0 && enchantBow) {
+                        lp.chatSigned("/enchant power 5", Component.literal(""));
+                    } else if (pressTime == 15 && enchantBow) {
+                        lp.chatSigned("/enchant punch 2", Component.literal(""));
+                    } else if (pressTime == 30 && enchantBow) {
+                        lp.chatSigned("/enchant unbreaking 3", Component.literal(""));
+                    } else if (pressTime == 45 && enchantBow) {
+                        lp.chatSigned("/enchant flame 1", Component.literal(""));
+                    } else if (pressTime == 60 && enchantBow) {
+                        lp.chatSigned("/enchant mending 1", Component.literal(""));
+                    } else if (pressTime == 75 && enchantBow) {
+                        lp.chatSigned("/enchant infinity 1", Component.literal(""));
+                        enchantBow = false;
+                        enchant = false;
+                    }
+
+                    if (pressTime == 0 && enchantHelmet) {
+                        lp.chatSigned("/enchant protection 4", Component.literal(""));
+                    } else if (pressTime == 15 && enchantHelmet) {
+                        lp.chatSigned("/enchant fireprotection 4", Component.literal(""));
+                    } else if (pressTime == 30 && enchantHelmet) {
+                        lp.chatSigned("/enchant blastprotection 4", Component.literal(""));
+                    } else if (pressTime == 45 && enchantHelmet) {
+                        lp.chatSigned("/enchant projectileprotection 4", Component.literal(""));
+                    } else if (pressTime == 60 && enchantHelmet) {
+                        lp.chatSigned("/enchant unbreaking 3", Component.literal(""));
+                    } else if (pressTime == 75 && enchantHelmet) {
+                        lp.chatSigned("/enchant thorns 3", Component.literal(""));
+                    } else if (pressTime == 90 && enchantHelmet) {
+                        lp.chatSigned("/enchant mending 1", Component.literal(""));
+                    } else if (pressTime == 105 && enchantHelmet) {
+                        lp.chatSigned("/enchant respiration 3", Component.literal(""));
+                    } else if (pressTime == 120 && enchantHelmet) {
+                        lp.chatSigned("/enchant aquaaffinity 1", Component.literal(""));
+                        enchantHelmet = false;
+                        enchant = false;
+                    }
+                    if (pressTime == 0 && enchantBoots) {
+                        lp.chatSigned("/enchant protection 4", Component.literal(""));
+                    } else if (pressTime == 15 && enchantBoots) {
+                        lp.chatSigned("/enchant fireprotection 4", Component.literal(""));
+                    } else if (pressTime == 30 && enchantBoots) {
+                        lp.chatSigned("/enchant blastprotection 4", Component.literal(""));
+                    } else if (pressTime == 45 && enchantBoots) {
+                        lp.chatSigned("/enchant projectileprotection 4", Component.literal(""));
+                    } else if (pressTime == 60 && enchantBoots) {
+                        lp.chatSigned("/enchant unbreaking 3", Component.literal(""));
+                    } else if (pressTime == 75 && enchantBoots) {
+                        lp.chatSigned("/enchant thorns 3", Component.literal(""));
+                    } else if (pressTime == 90 && enchantBoots) {
+                        lp.chatSigned("/enchant mending 1", Component.literal(""));
+                    } else if (pressTime == 105 && enchantBoots) {
+                        lp.chatSigned("/enchant depth_strider 3", Component.literal(""));
+                    } else if (pressTime == 120 && enchantBoots) {
+                        lp.chatSigned("/enchant featherfalling 4", Component.literal(""));
+                        enchantBoots = false;
+                        enchant = false;
+                    }
+                    if (pressTime == 0 && enchantRod) {
+                        lp.chatSigned("/enchant lure 3", Component.literal(""));
+                    } else if (pressTime == 15 && enchantRod) {
+                        lp.chatSigned("/enchant luck 3", Component.literal(""));
+                    } else if (pressTime == 30 && enchantRod) {
+                        lp.chatSigned("/enchant unbreaking 3", Component.literal(""));
+                    } else if (pressTime == 45 && enchantRod) {
+                        lp.chatSigned("/enchant mending 1", Component.literal(""));
+                        enchantRod = false;
+                        enchant = false;
+                    }
+                    if (pressTime == 0 && enchantOther) {
+                        lp.chatSigned("/enchant unbreaking 3", Component.literal(""));
+                    } else if (pressTime == 15 && enchantOther) {
+                        lp.chatSigned("/enchant mending 1", Component.literal(""));
+                        enchantOther = false;
+                        enchant = false;
+                    }
+
+                    if (enchant) {
+                        pressTime++;
                     }
                 } catch (Exception e) {}
-            }
-            //Cool down for AutoFix
-            if (coolDown) {
-                if (coolDownCounter >= 48040) {
-                    coolDown = false;
-                    coolDownCounter = 0;
-                }
-                coolDownCounter ++;
-            }
-            //AutoAdvert
-            if (AutoAdvert.sendingmessages) {
-                if (advertTimer >= AutoAdvert.interval) {
 
-                    lp.chatSigned(AutoAdvert.message, Component.literal(""));
-                    advertTimer = 0;
+                //Auto unenchant
+                try {
+                    if (pressTime == 0 && unEnchantAxe) {
+                        lp.chatSigned("/enchant sharpness 0", Component.literal(""));
+                    } else if (pressTime == 15 && unEnchantAxe) {
+                        lp.chatSigned("/enchant smite 0", Component.literal(""));
+                    } else if (pressTime == 30 && unEnchantAxe) {
+                        lp.chatSigned("/enchant baneofarthropods 0", Component.literal(""));
+                    } else if (pressTime == 45 && unEnchantAxe) {
+                        lp.chatSigned("/enchant efficiency 0", Component.literal(""));
+                    } else if (pressTime == 60 && unEnchantAxe) {
+                        lp.chatSigned("/enchant unbreaking 0", Component.literal(""));
+                    } else if (pressTime == 75 && unEnchantAxe) {
+                        lp.chatSigned("/enchant fortune 0", Component.literal(""));
+                    } else if (pressTime == 90 && unEnchantAxe) {
+                        lp.chatSigned("/enchant mending 0", Component.literal(""));
+                        unEnchantAxe = false;
+                        unEnchant = false;
+                    }
+                    if (pressTime == 0 && unEnchantSword) {
+                        lp.chatSigned("/enchant sharpness 0", Component.literal(""));
+                    } else if (pressTime == 15 && unEnchantSword) {
+                        lp.chatSigned("/enchant smite 0", Component.literal(""));
+                    } else if (pressTime == 30 && unEnchantSword) {
+                        lp.chatSigned("/enchant baneofarthropods 0", Component.literal(""));
+                    } else if (pressTime == 45 && unEnchantSword) {
+                        lp.chatSigned("/enchant fireaspect 0", Component.literal(""));
+                    } else if (pressTime == 60 && unEnchantSword) {
+                        lp.chatSigned("/enchant looting 0", Component.literal(""));
+                    } else if (pressTime == 75 && unEnchantSword) {
+                        lp.chatSigned("/enchant knockback 0", Component.literal(""));
+                    } else if (pressTime == 90 && unEnchantSword) {
+                        lp.chatSigned("/enchant sweepingedge 0", Component.literal(""));
+                    } else if (pressTime == 105 && unEnchantSword) {
+                        lp.chatSigned("/enchant unbreaking 0", Component.literal(""));
+                    } else if (pressTime == 120 && unEnchantSword) {
+                        lp.chatSigned("/enchant mending 0", Component.literal(""));
+                        unEnchantSword = false;
+                        unEnchant = false;
+                    }
+                    if (pressTime == 0 && unEnchantTool) {
+                        lp.chatSigned("/enchant efficiency 0", Component.literal(""));
+                    } else if (pressTime == 15 && unEnchantTool) {
+                        lp.chatSigned("/enchant unbreaking  0", Component.literal(""));
+                    } else if (pressTime == 30 && unEnchantTool) {
+                        lp.chatSigned("/enchant mending 0", Component.literal(""));
+                    } else if (pressTime == 45 && unEnchantTool) {
+                        lp.chatSigned("/enchant fortune 0", Component.literal(""));
+                        unEnchantTool = false;
+                        unEnchant = false;
+                    }
+                    if (pressTime == 0 && unEnchantChest) {
+                        lp.chatSigned("/enchant protection 0", Component.literal(""));
+                    } else if (pressTime == 15 && unEnchantChest) {
+                        lp.chatSigned("/enchant fireprotection 0", Component.literal(""));
+                    } else if (pressTime == 30 && unEnchantChest) {
+                        lp.chatSigned("/enchant blastprotection 0", Component.literal(""));
+                    } else if (pressTime == 45 && unEnchantChest) {
+                        lp.chatSigned("/enchant projectileprotection 0", Component.literal(""));
+                    } else if (pressTime == 60 && unEnchantChest) {
+                        lp.chatSigned("/enchant unbreaking 0", Component.literal(""));
+                    } else if (pressTime == 75 && unEnchantChest) {
+                        lp.chatSigned("/enchant thorns 0", Component.literal(""));
+                    } else if (pressTime == 90 && unEnchantChest) {
+                        lp.chatSigned("/enchant mending 0", Component.literal(""));
+                        unEnchantChest = false;
+                        unEnchant = false;
+                    }
+
+                    if (pressTime == 0 && unEnchantBow) {
+                        lp.chatSigned("/enchant power 0", Component.literal(""));
+                    } else if (pressTime == 15 && unEnchantBow) {
+                        lp.chatSigned("/enchant punch 0", Component.literal(""));
+                    } else if (pressTime == 30 && unEnchantBow) {
+                        lp.chatSigned("/enchant unbreaking 0", Component.literal(""));
+                    } else if (pressTime == 45 && unEnchantBow) {
+                        lp.chatSigned("/enchant flame 0", Component.literal(""));
+                    } else if (pressTime == 60 && unEnchantBow) {
+                        lp.chatSigned("/enchant mending 0", Component.literal(""));
+                    } else if (pressTime == 75 && unEnchantBow) {
+                        lp.chatSigned("/enchant infinity 0", Component.literal(""));
+                        unEnchantBow = false;
+                        unEnchant = false;
+                    }
+
+                    if (pressTime == 0 && unEnchantHelmet) {
+                        lp.chatSigned("/enchant protection 0", Component.literal(""));
+                    } else if (pressTime == 15 && unEnchantHelmet) {
+                        lp.chatSigned("/enchant fireprotection 0", Component.literal(""));
+                    } else if (pressTime == 30 && unEnchantHelmet) {
+                        lp.chatSigned("/enchant blastprotection 0", Component.literal(""));
+                    } else if (pressTime == 45 && unEnchantHelmet) {
+                        lp.chatSigned("/enchant projectileprotection 0", Component.literal(""));
+                    } else if (pressTime == 60 && unEnchantHelmet) {
+                        lp.chatSigned("/enchant unbreaking 0", Component.literal(""));
+                    } else if (pressTime == 75 && unEnchantHelmet) {
+                        lp.chatSigned("/enchant thorns 0", Component.literal(""));
+                    } else if (pressTime == 90 && unEnchantHelmet) {
+                        lp.chatSigned("/enchant mending 0", Component.literal(""));
+                    } else if (pressTime == 105 && unEnchantHelmet) {
+                        lp.chatSigned("/enchant respiration 0", Component.literal(""));
+                    } else if (pressTime == 120 && unEnchantHelmet) {
+                        lp.chatSigned("/enchant aquaaffinity 0", Component.literal(""));
+                        unEnchantHelmet = false;
+                        unEnchant = false;
+                    }
+                    if (pressTime == 0 && unEnchantBoots) {
+                        lp.chatSigned("/enchant protection 0", Component.literal(""));
+                    } else if (pressTime == 15 && unEnchantBoots) {
+                        lp.chatSigned("/enchant fireprotection 0", Component.literal(""));
+                    } else if (pressTime == 30 && unEnchantBoots) {
+                        lp.chatSigned("/enchant blastprotection 0", Component.literal(""));
+                    } else if (pressTime == 45 && unEnchantBoots) {
+                        lp.chatSigned("/enchant projectileprotection 0", Component.literal(""));
+                    } else if (pressTime == 60 && unEnchantBoots) {
+                        lp.chatSigned("/enchant unbreaking 0", Component.literal(""));
+                    } else if (pressTime == 75 && unEnchantBoots) {
+                        lp.chatSigned("/enchant thorns 0", Component.literal(""));
+                    } else if (pressTime == 90 && unEnchantBoots) {
+                        lp.chatSigned("/enchant mending 0", Component.literal(""));
+                    } else if (pressTime == 105 && unEnchantBoots) {
+                        lp.chatSigned("/enchant depth_strider 0", Component.literal(""));
+                    } else if (pressTime == 120 && unEnchantBoots) {
+                        lp.chatSigned("/enchant featherfalling 0", Component.literal(""));
+                        unEnchantBoots = false;
+                        unEnchant = false;
+                    }
+                    if (pressTime == 0 && unEnchantRod) {
+                        lp.chatSigned("/enchant lure 0", Component.literal(""));
+                    } else if (pressTime == 15 && unEnchantRod) {
+                        lp.chatSigned("/enchant luck 0", Component.literal(""));
+                    } else if (pressTime == 30 && unEnchantRod) {
+                        lp.chatSigned("/enchant unbreaking 0", Component.literal(""));
+                    } else if (pressTime == 45 && unEnchantRod) {
+                        lp.chatSigned("/enchant mending 0", Component.literal(""));
+                        unEnchantRod = false;
+                        unEnchant = false;
+                    }
+                    if (pressTime == 0 && unEnchantOther) {
+                        lp.chatSigned("/enchant unbreaking 0", Component.literal(""));
+                    } else if (pressTime == 15 && unEnchantOther) {
+                        lp.chatSigned("/enchant mending 0", Component.literal(""));
+                        unEnchantOther = false;
+                        unEnchant = false;
+                    }
+
+                    if (unEnchant) {
+                        pressTime++;
+                    }
+                } catch (Exception e) {
                 }
-                advertTimer++;
             }
-            //AutoEnchanting
-            try {
-                if (pressTime == 0 && enchantAxe) {
-                    lp.chatSigned("/enchant sharpness 5", Component.literal(""));
-                } else if (pressTime == 20 && enchantAxe) {
-                    lp.chatSigned("/enchant smite 5", Component.literal(""));
-                } else if (pressTime == 40 && enchantAxe) {
-                    lp.chatSigned("/enchant baneofarthropods 5", Component.literal(""));
-                } else if (pressTime == 60 && enchantAxe) {
-                    lp.chatSigned("/enchant efficiency 5", Component.literal(""));
-                } else if (pressTime == 80 && enchantAxe) {
-                    lp.chatSigned("/enchant unbreaking 3", Component.literal(""));
-                } else if (pressTime == 100 && enchantAxe) {
-                    lp.chatSigned("/enchant fortune 3", Component.literal(""));
-                } else if (pressTime == 120 && enchantAxe) {
-                    lp.chatSigned("/enchant mending 1", Component.literal(""));
-                    enchantAxe = false;
-                    enchant = false;
-                } 
-                if (pressTime == 0 && enchantSword) {
-                    lp.chatSigned("/enchant sharpness 5", Component.literal(""));
-                }
-                else if (pressTime == 20 && enchantSword) {
-                    lp.chatSigned("/enchant smite 5", Component.literal(""));
-                }
-                else if (pressTime == 40 && enchantSword) {
-                    lp.chatSigned("/enchant baneofarthropods 5", Component.literal(""));
-                }
-                else if (pressTime == 60 && enchantSword) {
-                    lp.chatSigned("/enchant fireaspect 2", Component.literal(""));
-                }
-                else if (pressTime == 80 && enchantSword) {
-                    lp.chatSigned("/enchant looting 3", Component.literal(""));
-                }
-                else if (pressTime == 100 && enchantSword) {
-                    lp.chatSigned("/enchant knockback 2", Component.literal(""));
-                }
-                else if (pressTime == 120 && enchantSword) {
-                    lp.chatSigned("/enchant sweepingedge 3", Component.literal(""));
-                }
-                else if (pressTime == 140 && enchantSword) {
-                    lp.chatSigned("/enchant unbreaking 3", Component.literal(""));
-                }
-                else if (pressTime == 160 && enchantSword) {
-                    lp.chatSigned("/enchant mending 1", Component.literal(""));
-                    enchantSword = false;
-                    enchant = false;
-                }
-                if (pressTime == 0 && enchantTool) {
-                    lp.chatSigned("/enchant efficiency 5", Component.literal(""));
-                }
-                else if (pressTime == 20 && enchantTool) {
-                    lp.chatSigned("/enchant unbreaking  3", Component.literal(""));
-                }
-                else if (pressTime == 40 && enchantTool) {
-                    lp.chatSigned("/enchant mending 1", Component.literal(""));
-                }
-                else if (pressTime == 60 && enchantTool) {
-                    lp.chatSigned("/enchant fortune 3", Component.literal(""));
-                    enchantTool = false;
-                    enchant = false;
-                }
-                if (pressTime == 0 && enchantChest) {
-                    lp.chatSigned("/enchant protection 4", Component.literal(""));
-                }
-                else if (pressTime == 20 && enchantChest) {
-                    lp.chatSigned("/enchant fireprotection 4", Component.literal(""));
-                }
-                else if (pressTime == 40 && enchantChest) {
-                    lp.chatSigned("/enchant blastprotection 4", Component.literal(""));
-                }
-                else if (pressTime == 60 && enchantChest) {
-                    lp.chatSigned("/enchant projectileprotection 4", Component.literal(""));
-                }
-                else if (pressTime == 80 && enchantChest) {
-                    lp.chatSigned("/enchant unbreaking 3", Component.literal(""));
-                }
-                else if (pressTime == 100 && enchantChest) {
-                    lp.chatSigned("/enchant thorns 3", Component.literal(""));
-                }
-                else if (pressTime == 120 && enchantChest) {
-                    lp.chatSigned("/enchant mending 1", Component.literal(""));
-                    enchantChest = false;
-                    enchant = false;
-                }
-
-                if (pressTime == 0 && enchantBow) {
-                    lp.chatSigned("/enchant power 5", Component.literal(""));
-                }
-                else if (pressTime == 20 && enchantBow) {
-                    lp.chatSigned("/enchant punch 2", Component.literal(""));
-                }
-                else if (pressTime == 40 && enchantBow) {
-                    lp.chatSigned("/enchant unbreaking 3", Component.literal(""));
-                }
-                else if (pressTime == 60 && enchantBow) {
-                    lp.chatSigned("/enchant flame 1", Component.literal(""));
-                }
-                else if (pressTime == 80 && enchantBow) {
-                    lp.chatSigned("/enchant mending 1", Component.literal(""));
-                }
-                else if (pressTime == 100 && enchantBow) {
-                    lp.chatSigned("/enchant infinity 1", Component.literal(""));
-                    enchantBow = false;
-                    enchant = false;
-                }
-
-                if (pressTime == 0 && enchantHelmet) {
-                    lp.chatSigned("/enchant protection 4", Component.literal(""));
-                }
-                else if (pressTime == 20 && enchantHelmet) {
-                    lp.chatSigned("/enchant fireprotection 4", Component.literal(""));
-                }
-                else if (pressTime == 40 && enchantHelmet) {
-                    lp.chatSigned("/enchant blastprotection 4", Component.literal(""));
-                }
-                else if (pressTime == 60 && enchantHelmet) {
-                    lp.chatSigned("/enchant projectileprotection 4", Component.literal(""));
-                }
-                else if (pressTime == 80 && enchantHelmet) {
-                    lp.chatSigned("/enchant unbreaking 3", Component.literal(""));
-                }
-                else if (pressTime == 100 && enchantHelmet) {
-                    lp.chatSigned("/enchant thorns 3", Component.literal(""));
-                }
-                else if (pressTime == 120 && enchantHelmet) {
-                    lp.chatSigned("/enchant mending 1", Component.literal(""));
-                }
-                else if (pressTime == 140 && enchantHelmet) {
-                    lp.chatSigned("/enchant respiration 3", Component.literal(""));
-                }
-                else if (pressTime == 160 && enchantHelmet) {
-                    lp.chatSigned("/enchant aquaaffinity 1", Component.literal(""));
-                    enchantHelmet = false;
-                    enchant = false;
-                }
-                if (pressTime == 0 && enchantBoots) {
-                    lp.chatSigned("/enchant protection 4", Component.literal(""));
-                }
-                else if (pressTime == 20 && enchantBoots) {
-                    lp.chatSigned("/enchant fireprotection 4", Component.literal(""));
-                }
-                else if (pressTime == 40 && enchantBoots) {
-                    lp.chatSigned("/enchant blastprotection 4", Component.literal(""));
-                }
-                else if (pressTime == 60 && enchantBoots) {
-                    lp.chatSigned("/enchant projectileprotection 4", Component.literal(""));
-                }
-                else if (pressTime == 80 && enchantBoots) {
-                    lp.chatSigned("/enchant unbreaking 3", Component.literal(""));
-                }
-                else if (pressTime == 100 && enchantBoots) {
-                    lp.chatSigned("/enchant thorns 3", Component.literal(""));
-                }
-                else if (pressTime == 120 && enchantBoots) {
-                    lp.chatSigned("/enchant mending 1", Component.literal(""));
-                }
-                else if (pressTime == 140 && enchantBoots) {
-                    lp.chatSigned("/enchant depth_strider 3", Component.literal(""));
-                }
-                else if (pressTime == 160 && enchantBoots) {
-                    lp.chatSigned("/enchant featherfalling 4", Component.literal(""));
-                    enchantBoots = false;
-                    enchant = false;
-                }
-                if (pressTime == 0 && enchantRod) {
-                    lp.chatSigned("/enchant lure 3", Component.literal(""));
-                }
-                else if (pressTime == 20 && enchantRod) {
-                    lp.chatSigned("/enchant luck 3", Component.literal(""));
-                }
-                else if (pressTime == 40 && enchantRod) {
-                    lp.chatSigned("/enchant unbreaking 3", Component.literal(""));
-                }
-                else if (pressTime == 60 && enchantRod) {
-                    lp.chatSigned("/enchant mending 1", Component.literal(""));
-                    enchantRod = false;
-                    enchant = false;
-                }
-                if (pressTime == 0 && enchantOther) {
-                    lp.chatSigned("/enchant unbreaking 3", Component.literal(""));
-                }
-                else if (pressTime == 20 && enchantOther) {
-                    lp.chatSigned("/enchant mending 1", Component.literal(""));
-                    enchantOther = false;
-                    enchant = false;
-                }
-                
-                if (enchant) {
-                    pressTime++;
-                }
-            } catch (Exception e) {}
         }
         @SubscribeEvent
         public static void logOff(ClientPlayerNetworkEvent.LoggingOut event) {
@@ -788,9 +903,11 @@ public class SbMod {
             enchant = false;
             spawnMobs = false;
             autoFix = false;
+            AutoAdvert.sendingmessages = false;
+            autoBuy = false;
         }
 
-        @SubscribeEvent
+        /*@SubscribeEvent
         public static void registerCommands(RegisterCommandsEvent event) {
             HelloCommand.register(event.getDispatcher());
             CalcCommand.register(event.getDispatcher());
@@ -798,11 +915,15 @@ public class SbMod {
             JoinCommand.register(event.getDispatcher());
             HelpCommand.register(event.getDispatcher());
             AutoAdvert.register(event.getDispatcher());
-            SetPrefix.register(event.getDispatcher());
+            //SetPrefix.register(event.getDispatcher());
             EnchantAllCommand.register((event.getDispatcher()));
             AutoFix.register(event.getDispatcher());
             CommandAliases.register((event.getDispatcher()));
-        }
+            AutoPrivate.register(event.getDispatcher());
+            AutoSpawnMob.register(event.getDispatcher());
+         }
+         */
+
         @SubscribeEvent
         public static void registerCommands(RegisterClientCommandsEvent event) {
             HelloCommand.register(event.getDispatcher());
@@ -811,12 +932,15 @@ public class SbMod {
             JoinCommand.register(event.getDispatcher());
             HelpCommand.register(event.getDispatcher());
             AutoAdvert.register(event.getDispatcher());
-            SetPrefix.register(event.getDispatcher());
+            //SetPrefix.register(event.getDispatcher());
             EnchantAllCommand.register((event.getDispatcher()));
             AutoFix.register(event.getDispatcher());
             CommandAliases.register((event.getDispatcher()));
             AutoPrivate.register(event.getDispatcher());
             AutoSpawnMob.register(event.getDispatcher());
+            DiscordLink.register(event.getDispatcher());
+            AutoBuyTemp.register(event.getDispatcher());
+            UnEnchantAllCommand.register(event.getDispatcher());
         }
     }
     @Mod.EventBusSubscriber(modid = "sbmod", value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.MOD)
