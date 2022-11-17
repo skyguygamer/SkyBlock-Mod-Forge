@@ -4,6 +4,8 @@
 #### For fabric version (RECOMMENDED!):
 #### https://github.com/skyguygamer/SkyBlock-Mod-Fabric
 
+#### Join discord for updates! https://discord.gg/WAw6xC29E8
+
 #### How to install
 ##### 1. Click on releases on the right hand side
 ##### 2. Click on lastest release
