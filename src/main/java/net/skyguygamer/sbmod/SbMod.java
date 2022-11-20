@@ -904,6 +904,7 @@ public class SbMod {
             spawnMobs = false;
             autoFix = false;
             AutoAdvert.sendingmessages = false;
+            advertTimer = 0;
             autoBuy = false;
         }
 
