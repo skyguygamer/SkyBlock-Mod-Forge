@@ -24,6 +24,9 @@
 /saliases Shows you a list of available command aliases
 /64 Divides an integer by 64
 /enchantall Enchants an item with everything that it can be enchanted with
+/unenchantall Unenchants everything from an item but silk touch
 /hello Says hello!
 /joincommand Executes a command on join
+/sdiscord Gives a link to the discord server
+/autobuy Will auto buy 2 lottery tickets every 30 minutes
 ```

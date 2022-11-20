@@ -475,7 +475,7 @@ public class SbMod {
                 }
                 player.displayClientMessage((Component.literal(boarder + "§a-")), false);
                 player.displayClientMessage((Component.literal("§7Skyblock Mod for forge 1.19.2")), false);
-                player.displayClientMessage((Component.literal("§7Updated version 3.0 §cBETA")), false);
+                player.displayClientMessage((Component.literal("§7Updated version 3.0.2 §cBETA")), false);
                 player.displayClientMessage((Component.literal("§7Type /shelp for list of commands")), false);
                 player.displayClientMessage((Component.literal(boarder + "§a-")), false);
             }
