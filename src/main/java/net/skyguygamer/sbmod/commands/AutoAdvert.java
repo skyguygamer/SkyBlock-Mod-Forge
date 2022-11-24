@@ -66,6 +66,7 @@ public final class AutoAdvert
     public static int advert(CommandSourceStack source, String messagetosend) {
         message = messagetosend;
         sendingmessages = true;
+        advertTimer = 0;
         LocalPlayer lp = (LocalPlayer) source.getEntity();
         //lp.chatSigned("d", Component.literal("dd"));
 

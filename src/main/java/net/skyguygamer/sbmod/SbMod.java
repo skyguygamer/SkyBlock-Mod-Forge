@@ -81,6 +81,7 @@ public class SbMod {
     public static boolean unEnchantAxe = false;
     public static boolean unEnchant = false;
     public static boolean unEnchantSword = false;
+    public static int ticketAmount = 2;
 
     public static void convertText(String text) {
         for (int i = 0; i < text.length(); i ++) {
@@ -535,7 +536,7 @@ public class SbMod {
                 //AutoSpawnMob
                 try {
                     if (spawnMobs) {
-                        if (spawnTime >= 1500) {
+                        if (spawnTime >= 620) {
                             lp.chatSigned(AutoSpawnMob.command, Component.literal(""));
                             spawnTime = 0;
                         }
@@ -568,7 +569,7 @@ public class SbMod {
                 //AutoBuyTEMP
                 if (autoBuy) {
                     if (autoBuyTime >= 36000) {
-                        lp.chatSigned("/lottery buy 2", Component.literal(""));
+                        lp.chatSigned("/lottery buy " + ticketAmount, Component.literal(""));
                         autoBuyTime = 0;
                     }
                     autoBuyTime++;
